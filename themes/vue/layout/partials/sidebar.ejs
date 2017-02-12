@@ -4,14 +4,14 @@
     </ul>
     <div class="list">
         <div class="main-sponsor">
-            <span>Sponsored By</span><br>
+            <span>Patrocinado por</span><br>
             <a href="http://www.thedifferenceengine.io/" target="_blank"
                 style="background-color: #f3f3f3; padding: 10px 0">
                 <img src="/images/tde.png">
             </a>
         </div>
         <a class="become-backer" href="/support-vuejs">
-            Become a Backer
+            Conviértete en un Backer
         </a>
         <h2>
             <%- type === 'api' ? 'API' : (type.charAt(0).toUpperCase() + type.slice(1)) %>
@@ -27,15 +27,15 @@
         <ul class="menu-root">
             <% type !== 'api' && site.pages.find({type: type}).sort('order').each(function (p) { %>
                 <% var fileName = p.path.replace(/^.+?\/([\w-]+)\.html/, '$1') %>
-                <% if (type === 'guide') { %>
+                <% if (type === 'guia') { %>
                     <% if (fileName === 'installation') { %>
-                      <li><h3>Essentials</h3></li>
+                      <li><h3>Inicio</h3></li>
                     <% } %>
                     <% if (fileName === 'reactivity') { %>
-                      <li><h3>Advanced</h3></li>
+                      <li><h3>Avanzado</h3></li>
                     <% } %>
                     <% if (fileName === 'migration') { %>
-                      <li><h3>Migrating</h3></li>
+                      <li><h3>Migrando</h3></li>
                     <% } %>
                     <% if (fileName === 'comparison') { %>
                       <li><h3>Meta</h3></li>
