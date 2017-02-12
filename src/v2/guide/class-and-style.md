@@ -1,6 +1,6 @@
 ---
 title: Class and Style Bindings
-type: guide
+type: guia
 order: 6
 ---
 

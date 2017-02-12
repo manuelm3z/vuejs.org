@@ -1,6 +1,6 @@
 ---
 title: Migration from Vue Router 0.7.x
-type: guide
+type: guia
 order: 27
 ---
 

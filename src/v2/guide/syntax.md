@@ -1,6 +1,6 @@
 ---
 title: Template Syntax
-type: guide
+type: guia
 order: 4
 ---
 

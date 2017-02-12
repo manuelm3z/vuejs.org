@@ -1,16 +1,16 @@
 ---
-title: Unit Testing
-type: guide
+title: Pruebas unitarias
+type: guia
 order: 23
 ---
 
-## Setup and Tooling
+## Configuración y herramientas
 
-Anything compatible with a module-based build system will work, but if you're looking for a specific recommendation, try the [Karma](http://karma-runner.github.io) test runner. It has a lot of community plugins, including support for [Webpack](https://github.com/webpack/karma-webpack) and [Browserify](https://github.com/Nikku/karma-browserify). For detailed setup, please refer to each project's respective documentation, though these example Karma configurations for [Webpack](https://github.com/vuejs-templates/webpack/blob/master/template/test/unit/karma.conf.js) and [Browserify](https://github.com/vuejs-templates/browserify/blob/master/template/karma.conf.js) may help you get started.
+Cualquier cosa compatible con un sistema de empaquetamiento basado en módulos funcionará, pero si buscas recomendaciones específicas, prueba el ejecutor de pruebas [Karma](http://karma-runner.github.io). Tiene muchos complementos desarrollados por la comunidad, incluyendo soporte para [Webpack](https://github.com/webpack/karma-webpack) y [Browserify](https://github.com/Nikku/karma-browserify). Para una configuración detallada, por favor lee la documentación respectiva de cada proyecto, auqneu estas configuraciones de ejemplo de Karma para [Webpack](https://github.com/vuejs-templates/webpack/blob/master/template/test/unit/karma.conf.js) y [Browserify](https://github.com/vuejs-templates/browserify/blob/master/template/karma.conf.js) deberían ayudarte a empezar.
 
-## Simple Assertions
+## Verificaciones simples
 
-In terms of code structure for testing, you don't have to do anything special in your components to make them testable. Just export the raw options:
+En términos de estructura de código para las pruebas, no tienes que hacer nada especial en tus componentes para poder probarlos. Simplemente exporta las opciones:
 
 ``` html
 <template>
@@ -31,36 +31,36 @@ In terms of code structure for testing, you don't have to do anything special in
 </script>
 ```
 
-When you test that component, all you have to do is import the object along with Vue to make many common assertions:
+Cuando pruebes ese componente, todo lo que tendrás que hacer es importar el objeto junto con Vue para intentar algunas verificaciones comunes:
 
 ``` js
-// Import Vue and the component being tested
+// Importa Vue y el componente bajo pruebas
 import Vue from 'vue'
 import MyComponent from 'path/to/MyComponent.vue'
 
-// Here are some Jasmine 2.0 tests, though you can
-// use any test runner / assertion library combo you prefer
+// Aquí hay alguas pruebas para Jasmine 2.0, aunque puedes
+// utilizar cualquier biblioteca que prefieras
 describe('MyComponent', () => {
-  // Inspect the raw component options
+  // Inspecciona las opciones base del componente
   it('has a created hook', () => {
     expect(typeof MyComponent.created).toBe('function')
   })
 
-  // Evaluate the results of functions in
-  // the raw component options
+  // Evalúa los resultados de las funciones
+  // en las opciones base del componente
   it('sets the correct default data', () => {
     expect(typeof MyComponent.data).toBe('function')
     const defaultData = MyComponent.data()
     expect(defaultData.message).toBe('hello!')
   })
 
-  // Inspect the component instance on mount
+  // Inspecciona la instancia del componente al montarla
   it('correctly sets the message when created', () => {
     const vm = new Vue(MyComponent).$mount()
     expect(vm.message).toBe('bye!')
   })
 
-  // Mount an instance and inspect the render output
+  // Monta la instancia e inspecciona el resultado del renderizado
   it('renders the correct message', () => {
     const Ctor = Vue.extend(MyComponent)
     const vm = new Ctor().$mount()
@@ -69,9 +69,9 @@ describe('MyComponent', () => {
 })
 ```
 
-## Writing Testable Components
+## Escribiendo componentes testeables
 
-A lot of components' render output are primarily determined by the props they receive. In fact, if a component's render output solely depends on its props, it becomes quite straightforward to test, similar to asserting the return value of a pure function with different arguments. Take an contrived example:
+Muchas de las salidas del renderizado de componentes están determinadas por las propiedades que recibe. De hecho, si el resultado del renderizado de un componente depende únicamente de sus propiedades, es bastante sencillo testearlo, parecido a verificar el valor de retorno de una función pura con diferentes parámetros. Un ejemplo inventado:
 
 ``` html
 <template>
@@ -85,13 +85,13 @@ A lot of components' render output are primarily determined by the props they re
 </script>
 ```
 
-You can assert its render output with different props using the `propsData` option:
+Puedes verificar el resultado del renderizado con diferentes propiedades utilizando la opción `propsData`:
 
 ``` js
 import Vue from 'vue'
 import MyComponent from './MyComponent.vue'
 
-// helper function that mounts and returns the rendered text
+// función auxiliar que monta y retorna el texto renderizado
 function getRenderedText (Component, propsData) {
   const Ctor = Vue.extend(Component)
   const vm = new Ctor({ propsData }).$mount()
@@ -111,17 +111,17 @@ describe('MyComponent', () => {
 })
 ```
 
-## Asserting Asynchronous Updates
+## Verificando actualizaciones asíncronas
 
-Since Vue [performs DOM updates asynchronously](reactivity.html#Async-Update-Queue), assertions on DOM updates resulting from state change will have to be made in a `Vue.nextTick` callback:
+Dado que Vue realiza [actualizaciones del DOM asíncronicamente](reactivity.html#Async-Update-Queue), las verificaciones sobre actualizaciones del DOM resultado de un cambio de estado tendrán que ser hechas en la _callback_ `Vue.nextTick`:
 
 ``` js
-// Inspect the generated HTML after a state update
+// Inspecciona el HTML generado luego de una actualización de estado
 it('updates the rendered message when vm.message updates', done => {
   const vm = new Vue(MyComponent).$mount()
   vm.message = 'foo'
 
-  // wait a "tick" after state change before asserting DOM updates
+  // espera un "tick" luego del cambio del estado y antes de verificar actualizaciones del DOM
   Vue.nextTick(() => {
     expect(vm.$el.textContent).toBe('foo')
     done()
@@ -129,4 +129,4 @@ it('updates the rendered message when vm.message updates', done => {
 })
 ```
 
-We are planning to work on a collection of common test helpers that makes it even simpler to render components with different constraints (e.g. shallow rendering that ignores child components) and assert their output.
+Tenemos en vista trabajar en una colección de funciones auxiliares de pruebas comunes que hacen más simple renderizar componentes con diferentes restricciones (por ejemplo, renderizado superficial ignorando los componentes hijo) y verificar sus resultados.

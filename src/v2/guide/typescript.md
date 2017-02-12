@@ -1,30 +1,30 @@
 ---
-title: TypeScript Support
-type: guide
+title: Soporte para TypeScript
+type: guia
 order: 25
 ---
 
-## Official Declaration Files
+## Archivos oficiales de declaración
 
-A static type system can help prevent many potential runtime errors, especially as applications grow. That's why Vue ships with [official type declarations](https://github.com/vuejs/vue/tree/dev/types) for [TypeScript](https://www.typescriptlang.org/) - not only in Vue core, but also [for Vue Router](https://github.com/vuejs/vue-router/tree/dev/types) and [for Vuex](https://github.com/vuejs/vuex/tree/dev/types) as well.
+Un sistema de tipos estáticos puede ayudar a prevenir varios errores potenciales en tiempo de ejecución, especialmente cuando la aplicación crece. Por esto es que Vue incluye [declaraciones oficiales de tipo](https://github.com/vuejs/vue/tree/dev/types) para [TypeScript](https://www.typescriptlang.org/) - no solo para Vue, sino también [para Vue Router](https://github.com/vuejs/vue-router/tree/dev/types) y [para Vuex](https://github.com/vuejs/vuex/tree/dev/types).
 
-Since these are [published on NPM](https://unpkg.com/vue/types/), you don't even need external tools like `Typings`, as declarations are automatically imported with Vue. That means all you need is a simple:
+Dado que son publicadas en [NPM](https://unpkg.com/vue/types/), ni siquiera necesitas herramientas externas como `Typings`, ya que las declaraciones son importadas automáticamente con Vue. Esto significa que todo lo que necesitas es simplemente:
 
 ``` ts
 import Vue = require('vue')
 ```
 
-Then all methods, properties, and parameters will be type checked. For example, if you misspell the `template` component option as `tempate` (missing the `l`), the TypeScript compiler will print an error message at compile time. If you're using an editor that can lint TypeScript, such as [Visual Studio Code](https://code.visualstudio.com/), you'll even be able to catch these errors before compilation:
+Entonces se verificarán los tipos de todos los métodos, propiedades y parámetros. Por ejemplo, si por un error de tipeo escribes `template` como `tempate` (sin la `l`), el compilador de TypeScript imprimirá un mensaje de error en tiempo de compilación. Si estás utilizando un editor que pueda _lintear_ TypeScript, como [Visual Studio Code](https://code.visualstudio.com/), será posible encontrar estos errores incluso antes de compilar:
 
 ![TypeScript Type Error in Visual Studio Code](/images/typescript-type-error.png)
 
-### Compilation Options
+### Opciones de compilación
 
-Vue's declaration files require the `--lib DOM,ES5,ES2015.Promise` [compiler option](https://www.typescriptlang.org/docs/handbook/compiler-options.html). You can pass this option to the `tsc` command or add the equivalent to a `tsconfig.json` file.
+Los archivos de declaración de Vue requieren [la opción de compilador](https://www.typescriptlang.org/docs/handbook/compiler-options.html) `--lib DOM,ES5,ES2015.Promise`. Puedes pasar esta opción al comando `tsc` o agregar el equivalente en un archivo `tsconfig.json`.
 
-### Accessing Vue's Type Declarations
+### Accediendo a las declaraciones de tipo de Vue
 
-If you want to annotate your own code with Vue's types, you can access them on Vue's exported object. For example, to annotate an exported component options object (e.g. in a `.vue` file):
+Si quieres _annotar_ a tu propio código con los tipos de Vue, puedes acceder a ellos en el objeto exportado de Vue. Por ejemplo, para _annotar_ un objeto de opciones de componente exportado (en un archivo `.vue`):
 
 ``` ts
 import Vue = require('vue')
@@ -35,14 +35,14 @@ export default {
 } as Vue.ComponentOptions<Vue>
 ```
 
-## Class-Style Vue Components
+## Componentes de Vue como clases JavaScript
 
-Vue component options can easily be annotated with types:
+Las opciones de componentes de Vue pueden ser _annotadas_ fácilmente con tipos:
 
 ``` ts
 import Vue = require('vue')
 
-// Declare the component's type
+// Declara el tipo del componente
 interface MyComponent extends Vue {
   message: string
   onClick (): void
@@ -57,42 +57,42 @@ export default {
   },
   methods: {
     onClick: function () {
-      // TypeScript knows that `this` is of type MyComponent
-      // and that `this.message` will be a string
+      // TypeScript sabe que `this` es de tipo MyComponent
+      // y que `this.message` será una cadena de texto
       window.alert(this.message)
     }
   }
-// We need to explicitly annotate the exported options object
-// with the MyComponent type
+// Necesitamos _annotar_ explícitamente el objeto de
+// opciones exportado con el tipo MyComponent
 } as Vue.ComponentOptions<MyComponent>
 ```
 
-Unfortunately, there are a few limitations here:
+Desafortunadamente, hay algunas limitaciones aquí:
 
-- __TypeScript can't infer all types from Vue's API.__ For example, it doesn't know that the `message` property returned in our `data` function will be added to the `MyComponent` instance. That means if we assigned a number or boolean value to `message`, linters and compilers wouldn't be able to raise an error, complaining that it should be a string.
+- __TypeScript no puede inferir todos los tipos de la API de Vue.__ Por ejemplo, no sabe que la propiedad `message` devuelta en nuestra función `data` será agregada a la instancia de `MyComponent`. Eso significa que si asignamos un valor númerico o booleano a `message`, los _linters_ y compiladores no serían capaces de lanzar un error, indicando que debería ser una cadena de texto.
 
-- Because of the previous limitation, __annotating types like this can be verbose__. The only reason we have to manually declare `message` as a string is because TypeScript can't infer the type in this case.
+- Debido a la limitación anterior, __annotando tipos de esta manera puede tornarse tedioso y largo__. La única razón por la que tenemos que declarar manualmente `message` como una cadena de texto es porque TypeScript no puede inferir el tipo en este caso.
 
-Fortunately, [vue-class-component](https://github.com/vuejs/vue-class-component) can solve both of these problems. It's an official companion library that allows you to declare components as native JavaScript classes, with a `@Component` decorator. As an example, let's rewrite the above component:
+Afortunadamente, [vue-class-component](https://github.com/vuejs/vue-class-component) puede resolver ambos problemas. Es una biblioteca oficial que te permite declarar componentes como clases nativas de JavaScript, con el decorador `@Component`. Como ejemplo, reescribamos el componente anterior:
 
 ``` ts
 import Vue = require('vue')
 import Component from 'vue-class-component'
 
-// The @Component decorator indicates the class is a Vue component
+// El decorador @Component indica que la clase es un componente de Vue
 @Component({
-  // All component options are allowed in here
+  // Todas las opciones del componente están permitidas aquí
   template: '<button @click="onClick">Click!</button>'
 })
 export default class MyComponent extends Vue {
-  // Initial data can be declared as instance properties
+  // Los datos iniciales pueden ser declarados como propiedades de instancia
   message: string = 'Hello!'
 
-  // Component methods can be declared as instance methods
+  // Los métodos del componente pueden ser declarados por métodos de la instancia
   onClick (): void {
     window.alert(this.message)
   }
 }
 ```
 
-With this syntax alternative, our component definition is not only shorter, but TypeScript can also infer the types of `message` and `onClick` without explicit interface declarations. This strategy even allows you to handle types for computed properties, lifecycle hooks, and render functions. For full usage details, see [the vue-class-component docs](https://github.com/vuejs/vue-class-component#vue-class-component).
+Con esta sintaxis alternativa, nuestra definición de componente no solo es más corta, sino que TypeScript puede también inferir los tipos de `message` y `onClick` sin declaraciones de interface explícitas. Esta estrategia incluso te permite manejar los tipos de las propiedades computadas, _hooks_ de ciclo de vida y funciones de renderizado. Para los detalles completos de uso, lee la [documentación de vue-class-component](https://github.com/vuejs/vue-class-component#vue-class-component).

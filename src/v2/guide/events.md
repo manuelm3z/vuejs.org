@@ -1,6 +1,6 @@
 ---
 title: Event Handling
-type: guide
+type: guia
 order: 9
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Comparison with Other Frameworks
-type: guide
+type: guia
 order: 29
 ---
 

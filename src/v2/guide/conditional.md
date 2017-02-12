@@ -1,6 +1,6 @@
 ---
 title: Conditional Rendering
-type: guide
+type: guia
 order: 7
 ---
 

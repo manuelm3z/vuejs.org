@@ -1,6 +1,6 @@
 ---
 title: Migration from Vuex 0.6.x to 1.0
-type: guide
+type: guia
 order: 28
 ---
 

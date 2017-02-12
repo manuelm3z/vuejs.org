@@ -1,6 +1,6 @@
 ---
 title: Form Input Bindings
-type: guide
+type: guia
 order: 10
 ---
 

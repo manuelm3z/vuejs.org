@@ -1,21 +1,21 @@
 ---
-title: Transitioning State
-type: guide
+title: Transiciones en el estado
+type: guia
 order: 14
 ---
 
-Vue's transition system offers many simple ways to animate entering, leaving, and lists, but what about animating your data itself? For example:
+El sistema de transiciones de Vue ofrece muchas formas simples de animar entrada, salida y listado de elementos pero, ¿qué sucede si quieres animar los datos? Por ejemplo:
 
-- numbers and calculations
-- colors displayed
-- the positions of SVG nodes
-- the sizes and other properties of elements
+- números y cálculos
+- colores exhibidos
+- las posiciones de nodods SVG
+- tamaño y otras propiedades de los elementos
 
-All of these are either already stored as raw numbers or can be converted into numbers. Once we do that, we can animate these state changes using 3rd-party libraries to tween state, in combination with Vue's reactivity and component systems.
+Todos estos datos están almacenados como números o pueden ser convertidos fácilmente. Una vez que lo hagamos, podemos animar estos cambios de estado utilizando bibliotecas de terceros en combinación con los sistemas de reactividad y componentes de Vue.
 
-## Animating State with Watchers
+## Animando estado con observadores
 
-Watchers allow us to animate changes of any numerical property into another property. That may sound complicated in the abstract, so let's dive into an example using Tween.js:
+Los observadores nos permiten animar cambios de cualquier propiedad numérica en otra propiedad. Esto puede parecer complicado, así que veamos un ejemplo utilizando Tween.js:
 
 ``` html
 <script src="https://unpkg.com/tween.js@16.3.4"></script>
@@ -95,7 +95,7 @@ new Vue({
 </script>
 {% endraw %}
 
-When you update the number, the change is animated below the input. This makes for a nice demo, but what about something that isn't directly stored as a number, like any valid CSS color for example? Here's how we could accomplish this with the addition of Color.js:
+Cuando actualices el número, el cambio se anima debajo del campo de texto. De esta manera logramos una hermosa demostración pero, ¿qué sucede con algo que no está directamente almacenado como un número, como un color CSS válido por ejemplo? Aquí puedes ver como lo logramos añadiendo Color.js:
 
 ``` html
 <script src="https://unpkg.com/tween.js@16.3.4"></script>
@@ -255,9 +255,9 @@ new Vue({
 </style>
 {% endraw %}
 
-## Dynamic State Transitions
+## Transiciones de estado dinámicas
 
-Just as with Vue's transition components, the data backing state transitions can be updated in real time, which is especially useful for prototyping! Even using a simple SVG polygon, you can achieve many effects that would be difficult to conceive of until you've played with the variables a little.
+Así como Vue con los componentes de transición, los datos respaldando las transiciones de estado pueden ser actualizados en tiempo real, ¡lo cual es particularmente útil para el prototipado! Incluso utilizando un polígono SVG simple, puedes lograr muchos efectos que serían difíciles de concebir hasta que hayas jugado un poco con las variables.
 
 {% raw %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenLite.min.js"></script>
@@ -390,11 +390,11 @@ function generatePoints (stats) {
 </style>
 {% endraw %}
 
-See [this fiddle](https://jsfiddle.net/chrisvfritz/65gLu2b6/) for the complete code behind the above demo.
+[Fiddle](https://jsfiddle.net/chrisvfritz/65gLu2b6/) con el código completo del ejemplo.
 
-## Organizing Transitions into Components
+## Organizando las transiciones como componentes
 
-Managing many state transitions can quickly increase the complexity of a Vue instance or component. Fortunately, many animations can be extracted out into dedicated child components. Let's do this with the animated integer from our earlier example:
+Manejar transiciones de estado puede incrementar rápidamente la complejidad de nuestra instancia de Vue o componente. Afortunadamente, muchas animaciones pueden ser extraídas creando componentes dedicados. Hagámoslo con el entero animado de nuestro ejemplo anterior:
 
 ``` html
 <script src="https://unpkg.com/tween.js@16.3.4"></script>
@@ -412,10 +412,10 @@ Managing many state transitions can quickly increase the complexity of a Vue ins
 ```
 
 ``` js
-// This complex tweening logic can now be reused between
-// any integers we may wish to animate in our application.
-// Components also offer a clean interface for configuring
-// more dynamic transitions and complex transition
+// Esta lógica compleja de intercambio puede ser reutilizada entre
+// todos los enteros que deseemos animar en nuestra aplicación.
+// Los componentes también ofrecen una interface limpia para configurar
+// más transiciones dinámicas y transiciones complejas
 // strategies.
 Vue.component('animated-integer', {
   template: '<span>{{ tweeningValue }}</span>',
@@ -460,7 +460,7 @@ Vue.component('animated-integer', {
   }
 })
 
-// All complexity has now been removed from the main Vue instance!
+// ¡Toda la complejidad fue removida de la instancia principal de Vue!
 new Vue({
   el: '#example-8',
   data: {
@@ -545,4 +545,4 @@ new Vue({
 </script>
 {% endraw %}
 
-Within child components, we can use any combination of transition strategies that have been covered on this page, along with those offered by Vue's [built-in transition system](transitions.html). Together, there are very few limits to what can be accomplished.
+Dentro de componentes hijo, podemos utilizar cualquier combinación de estrategias de transición que hemos cubierto en esta página, junto con las ofrecidas por el [sistema de transición incorporado](transitions.html) de Vue. Juntas, hay pocos límites para lo que queramos lograr.

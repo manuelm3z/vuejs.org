@@ -1,6 +1,6 @@
 ---
 title: Migration from Vue 1.x
-type: guide
+type: guia
 order: 26
 ---
 

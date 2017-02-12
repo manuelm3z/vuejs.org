@@ -1,40 +1,40 @@
 ---
-title: The Vue Instance
-type: guide
+title: La instancia de Vue
+type: guia
 order: 3
 ---
 
 ## Constructor
 
-Every Vue vm is bootstrapped by creating a **root Vue instance** with the `Vue` constructor function:
+Cada vm Vue es iniciada creando una **instancia raíz de Vue** con la función constructora `Vue`:
 
 ``` js
 var vm = new Vue({
-  // options
+  // opciones
 })
 ```
 
-Although not strictly associated with the [MVVM pattern](https://en.wikipedia.org/wiki/Model_View_ViewModel), Vue's design was partly inspired by it. As a convention, we often use the variable `vm` (short for ViewModel) to refer to our Vue instances.
+A pesar de no estar estrictamente asociado con el [patrón MVVM](https://en.wikipedia.org/wiki/Model_View_ViewModel), el diseño de Vue estuvo parcialmente inspirado en él. Como convención, normalmente utilizamos la variable `vm` (abreviación de ViewModel) para referirnos a instancias de Vue.
 
-When you instantiate a Vue instance, you need to pass in an **options object** which can contain options for data, template, element to mount on, methods, lifecycle callbacks and more. The full list of options can be found in the [API reference](../api).
+Cuando crees una nueva instancia de Vue, necesitas pasar un **objeto de opciones** el cual puede contener opciones para datos, una plantilla, el elemento donde montarla, métodos, _callbacks_ para el ciclo de vida, etc. Puedes encontrar la lista completa de opciones en la [documentación de referencia de la API](../api).
 
-The `Vue` constructor can be extended to create reusable **component constructors** with pre-defined options:
+El constructor de `Vue` puede ser extendido para crear **constructores de componentes** reutilizables con opciones predefinidas:
 
 ``` js
 var MyComponent = Vue.extend({
-  // extension options
+  // opciones de extensión
 })
 
-// all instances of `MyComponent` are created with
-// the pre-defined extension options
+// todas las instancias de `MyComponent` son creadas con
+// las opciones de extensión predefinidas
 var myComponentInstance = new MyComponent()
 ```
 
-Although it is possible to create extended instances imperatively, most of the time it is recommended to compose them declaratively in templates as custom elements. We will talk about [the component system](components.html) in detail later. For now, you just need to know that all Vue components are essentially extended Vue instances.
+Aunque es posible crear instancias extendidas imperativamente, la mayor parte del tiempo es recomendable componerlas declarativamente in plantillas como elementos personalizados. Hablaremos de ello en detalle en [el sistema de componentes](components.html). Por ahora, solo necesitas saber que todos los componentes de Vue son, esencialmente, instancias de Vue extendidas.
 
-## Properties and Methods
+## Propiedades y métodos
 
-Each Vue instance **proxies** all the properties found in its `data` object:
+Cada instancia de Vue **proxies** todas las propiedades que se encuentran en su objeto `data`:
 
 ``` js
 var data = { a: 1 }
@@ -42,17 +42,18 @@ var vm = new Vue({
   data: data
 })
 
-vm.a === data.a // -> true
+vm.a === data.a // -> verdadero
 
-// setting the property also affects original data
+// modificar el valor de la propiedad también afecta a los datos originales
 vm.a = 2
 data.a // -> 2
 
-// ... and vice-versa
+// ... y viceversa
 data.a = 3
 vm.a // -> 3
 ```
 
+Debe tenerse en cuenta 
 It should be noted that only these proxied properties are **reactive**. If you attach a new property to the instance after it has been created, it will not trigger any view updates. We will discuss the reactivity system in detail later.
 
 In addition to data properties, Vue instances expose a number of useful instance properties and methods. These properties and methods are prefixed with `$` to differentiate them from proxied data properties. For example:

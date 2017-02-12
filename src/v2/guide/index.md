@@ -1,6 +1,6 @@
 ---
 title: Introduction
-type: guide
+type: guia
 order: 2
 ---
 

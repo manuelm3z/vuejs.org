@@ -1,6 +1,6 @@
 ---
 title: Components
-type: guide
+type: guia
 order: 11
 ---
 
