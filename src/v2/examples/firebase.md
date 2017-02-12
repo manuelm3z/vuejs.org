@@ -1,9 +1,9 @@
 ---
-title: Firebase + Validation
-type: examples
+title: Firebase + validación
+type: ejemplos
 order: 2
 ---
 
-> This example uses [Firebase](https://firebase.google.com/) as the data persistence backend and syncs between clients in real time (you can try opening it in multiple browser tabs). In addition, it performs instant validation using computed properties and triggers CSS transitions when adding/removing items.
+> Este ejemplo utiliza [Firebase](https://firebase.google.com/) como _backend_ de persistencia de datos y sincroniza a los clientes en tiempo real (puedes probarlo abriendo varias pestañas en tu navegador). Además, realiza validación instantánea utilizando propiedades computadas y dispara transiciones CSS cuando se agregan/quitan elementos.
 
 <iframe width="100%" height="500" src="https://jsfiddle.net/chrisvfritz/pyLbpzzx/embedded/result,html,js,css" allowfullscreen="allowfullscreen" frameborder="0"></iframe>

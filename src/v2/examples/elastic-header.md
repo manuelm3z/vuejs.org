@@ -1,6 +1,6 @@
 ---
-title: Elastic Header
-type: examples
+title: Encabezado elastico
+type: ejemplos
 order: 7
 ---
 
