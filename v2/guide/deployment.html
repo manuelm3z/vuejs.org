@@ -1,0 +1,649 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Consejos para el despliegue a producción — Vue.js</title>
+        <meta charset="utf-8">
+        <meta name="description" content="Vue.js - Intuitive, Fast and Composable MVVM for building interactive interfaces.">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+        <meta property="og:type" content="article">
+        <meta property="og:title" content="Consejos para el despliegue a producción — Vue.js">
+        <meta property="og:description" content="Vue.js - Intuitive, Fast and Composable MVVM for building interactive interfaces.">
+        <meta property="og:image" content="https:///vuejs.org/images/logo.png">
+
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="Consejos para el despliegue a producción — Vue.js">
+        <meta name="twitter:description" content="Vue.js - Intuitive, Fast and Composable MVVM for building interactive interfaces.">
+        <meta name="twitter:image" content="https://vuejs.org/images/logo.png">
+
+        <link rel="icon" href="/vuejs.org/images/logo.png" type="image/x-icon">
+
+        <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Roboto Mono' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Dosis:500&text=Vue.js' rel='stylesheet' type='text/css'>
+
+        <!-- main page styles -->
+        <link rel="stylesheet" href="/vuejs.org/css/page.css">
+
+        <!-- this needs to be loaded before guide's inline scripts -->
+        <script src="/vuejs.org/js/vue.js"></script>
+        <script>window.PAGE_TYPE = "guia"</script>
+
+        <!-- ga -->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-46852172-1', 'vuejs.org');
+          ga('send', 'pageview');
+        </script>
+    </head>
+    <body class="docs">        <div id="mobile-bar" >
+            <a class="menu-button"></a>
+            <a class="logo" href="/"></a>
+        </div>
+        <div id="header">
+  <a id="logo" href="/vuejs.org/">
+    <img src="/vuejs.org/images/logo.png">
+    <span>Vue.js</span>
+  </a>
+  <ul id="nav">
+    <li>
+  <form id="search-form">
+    <input type="text" id="search-query-nav" class="search-query st-default-search-input">
+  </form>
+</li>
+<li><a href="/vuejs.org/v2/guide/" class="nav-link current">Guia</a></li>
+<li><a href="/vuejs.org/v2/api/" class="nav-link">API</a></li>
+<li><a href="/vuejs.org/v2/examples/" class="nav-link">Ejemplos</a></li>
+<li class="nav-dropdown-container ecosystem">
+  <a class="nav-link">Ecosistema</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><h4>Ayuda</h4></li>
+    <li><ul>
+      <li><a href="http://forum.vuejs.org" class="nav-link" target="_blank">Foro</a></li>
+      <li><a href="https://gitter.im/vuejs/vue" class="nav-link" target="_blank">Chat</a></li>
+      <li><a href="https://github.com/vuejs-templates" class="nav-link" target="_blank">Plantillas</a></li>
+    </ul></li>
+    <li><h4>Novedades</h4></li>
+    <li><ul>
+      <li><a href="https://twitter.com/vuejs" class="nav-link" target="_blank">Twitter</a></li>
+      <li><a href="https://medium.com/the-vue-point" class="nav-link" target="_blank">Blog</a></li>
+      <li><a href="https://vuejobs.com/?ref=vuejs" class="nav-link" target="_blank">Trabajos</a></li>
+    </ul></li>
+    <li><h4>Complementos principales</h4></li>
+    <li><ul>
+      <li><a href="https://router.vuejs.org/" class="nav-link" target="_blank">Vue Router</a></li>
+      <li><a href="https://vuex.vuejs.org/" class="nav-link" target="_blank">Vuex</a></li>
+    </ul></li>
+    <li><h4>Listado de recursos</h4></li>
+    <li><ul>
+      <li><a href="https://github.com/vuejs" class="nav-link" target="_blank">Repos oficiales</a></li>
+      <li><a href="https://github.com/vuejs/awesome-vue" class="nav-link" target="_blank">Awesome Vue</a></li>
+    </ul></li>
+  </ul>
+</li>
+
+
+
+<li class="nav-dropdown-container language">
+  <a class="nav-link">Traducciones</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://cn.vuejs.org/" class="nav-link" target="_blank">中文</a></li>
+    <li><a href="https://jp.vuejs.org/" class="nav-link" target="_blank">日本語</a></li>
+    <li><a href="https://ru.vuejs.org/" class="nav-link" target="_blank">Русский</a></li>
+    <li><a href="https://kr.vuejs.org/" class="nav-link" target="_blank">한국어</a></li>
+  </ul>
+</li>
+
+
+  </ul>
+</div>
+
+        
+            <div id="main" class="fix-sidebar">
+                
+                    
+    <div class="sidebar">
+    <ul class="main-menu">
+        <li>
+  <form id="search-form">
+    <input type="text" id="search-query-sidebar" class="search-query st-default-search-input">
+  </form>
+</li>
+<li><a href="/vuejs.org/v2/guide/" class="nav-link current">Guia</a></li>
+<li><a href="/vuejs.org/v2/api/" class="nav-link">API</a></li>
+<li><a href="/vuejs.org/v2/examples/" class="nav-link">Ejemplos</a></li>
+<li class="nav-dropdown-container ecosystem">
+  <a class="nav-link">Ecosistema</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><h4>Ayuda</h4></li>
+    <li><ul>
+      <li><a href="http://forum.vuejs.org" class="nav-link" target="_blank">Foro</a></li>
+      <li><a href="https://gitter.im/vuejs/vue" class="nav-link" target="_blank">Chat</a></li>
+      <li><a href="https://github.com/vuejs-templates" class="nav-link" target="_blank">Plantillas</a></li>
+    </ul></li>
+    <li><h4>Novedades</h4></li>
+    <li><ul>
+      <li><a href="https://twitter.com/vuejs" class="nav-link" target="_blank">Twitter</a></li>
+      <li><a href="https://medium.com/the-vue-point" class="nav-link" target="_blank">Blog</a></li>
+      <li><a href="https://vuejobs.com/?ref=vuejs" class="nav-link" target="_blank">Trabajos</a></li>
+    </ul></li>
+    <li><h4>Complementos principales</h4></li>
+    <li><ul>
+      <li><a href="https://router.vuejs.org/" class="nav-link" target="_blank">Vue Router</a></li>
+      <li><a href="https://vuex.vuejs.org/" class="nav-link" target="_blank">Vuex</a></li>
+    </ul></li>
+    <li><h4>Listado de recursos</h4></li>
+    <li><ul>
+      <li><a href="https://github.com/vuejs" class="nav-link" target="_blank">Repos oficiales</a></li>
+      <li><a href="https://github.com/vuejs/awesome-vue" class="nav-link" target="_blank">Awesome Vue</a></li>
+    </ul></li>
+  </ul>
+</li>
+
+
+
+<li class="nav-dropdown-container language">
+  <a class="nav-link">Traducciones</a><span class="arrow"></span>
+  <ul class="nav-dropdown">
+    <li><a href="https://cn.vuejs.org/" class="nav-link" target="_blank">中文</a></li>
+    <li><a href="https://jp.vuejs.org/" class="nav-link" target="_blank">日本語</a></li>
+    <li><a href="https://ru.vuejs.org/" class="nav-link" target="_blank">Русский</a></li>
+    <li><a href="https://kr.vuejs.org/" class="nav-link" target="_blank">한국어</a></li>
+  </ul>
+</li>
+
+
+    </ul>
+    <div class="list">
+        <div class="main-sponsor">
+            <span>Patrocinado por</span><br>
+            <a href="http://www.thedifferenceengine.io/" target="_blank"
+                style="background-color: #f3f3f3; padding: 10px 0">
+                <img src="/vuejs.org/images/tde.png ">
+            </a>
+        </div>
+        <a class="become-backer" href="/vuejs.org/support-vuejs">
+            Conviértete en un Backer
+        </a>
+        <h2>
+            Guia
+            
+                <select class="version-select">
+                    <option value="SELF" selected>2.0</option>
+                    <option value="v1">1.0</option>
+                    <option value="012">0.12</option>
+                    <option value="011">0.11</option>
+                </select>
+            
+        </h2>
+        <ul class="menu-root">
+            
+                
+                
+                    
+                      <li><h3>Inicio</h3></li>
+                    
+                    
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/installation.html" class="sidebar-link">Instalación</a>
+                </li>
+            
+                
+                
+                    
+                    
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/index.html" class="sidebar-link">Introducción</a>
+                </li>
+            
+                
+                
+                    
+                    
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/instance.html" class="sidebar-link">La instancia de Vue</a>
+                </li>
+            
+                
+                
+                    
+                    
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/syntax.html" class="sidebar-link">Sintaxis de plantillas</a>
+                </li>
+            
+                
+                
+                    
+                    
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/computed.html" class="sidebar-link">Propiedades computadas y observadores</a>
+                </li>
+            
+                
+                
+                    
+                    
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/class-and-style.html" class="sidebar-link">Enlace de estilos y clases</a>
+                </li>
+            
+                
+                
+                    
+                    
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/conditional.html" class="sidebar-link">Renderizado condicional</a>
+                </li>
+            
+                
+                
+                    
+                    
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/list.html" class="sidebar-link">Renderizado de listas</a>
+                </li>
+            
+                
+                
+                    
+                    
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/events.html" class="sidebar-link">Manejo de eventos</a>
+                </li>
+            
+                
+                
+                    
+                    
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/forms.html" class="sidebar-link">Enlaces con campos de formulario</a>
+                </li>
+            
+                
+                
+                    
+                    
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/components.html" class="sidebar-link">Componentes</a>
+                </li>
+            
+                
+                
+                    
+                    
+                      <li><h3>Avanzado</h3></li>
+                    
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/reactivity.html" class="sidebar-link">Reactividad en profundidad</a>
+                </li>
+            
+                
+                
+                    
+                    
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/transitions.html" class="sidebar-link">Efectos de transición</a>
+                </li>
+            
+                
+                
+                    
+                    
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/transitioning-state.html" class="sidebar-link">Transiciones en el estado</a>
+                </li>
+            
+                
+                
+                    
+                    
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/render-function.html" class="sidebar-link">Funciones de renderizado</a>
+                </li>
+            
+                
+                
+                    
+                    
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/custom-directive.html" class="sidebar-link">Directivas personalizadas</a>
+                </li>
+            
+                
+                
+                    
+                    
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/mixins.html" class="sidebar-link">Mixins</a>
+                </li>
+            
+                
+                
+                    
+                    
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/plugins.html" class="sidebar-link">Complementos</a>
+                </li>
+            
+                
+                
+                    
+                    
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/single-file-components.html" class="sidebar-link">Componentes de un solo archivo</a>
+                </li>
+            
+                
+                
+                    
+                    
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/deployment.html" class="sidebar-link current">Consejos para el despliegue a producción</a>
+                </li>
+            
+                
+                
+                    
+                    
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/routing.html" class="sidebar-link">Enrutamiento</a>
+                </li>
+            
+                
+                
+                    
+                    
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/state-management.html" class="sidebar-link">Manejo de estado</a>
+                </li>
+            
+                
+                
+                    
+                    
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/unit-testing.html" class="sidebar-link">Pruebas unitarias</a>
+                </li>
+            
+                
+                
+                    
+                    
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/ssr.html" class="sidebar-link">Renderizado del lado servidor</a>
+                </li>
+            
+                
+                
+                    
+                    
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/typescript.html" class="sidebar-link">Soporte para TypeScript</a>
+                </li>
+            
+                
+                
+                    
+                    
+                    
+                      <li><h3>Migrando</h3></li>
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/migration.html" class="sidebar-link">Migration from Vue 1.x</a>
+                </li>
+            
+                
+                
+                    
+                    
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/migration-vue-router.html" class="sidebar-link">Migration from Vue Router 0.7.x</a>
+                </li>
+            
+                
+                
+                    
+                    
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/migration-vuex.html" class="sidebar-link">Migration from Vuex 0.6.x to 1.0</a>
+                </li>
+            
+                
+                
+                    
+                    
+                    
+                    
+                      <li><h3>Meta</h3></li>
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/comparison.html" class="sidebar-link">Comparison with Other Frameworks</a>
+                </li>
+            
+                
+                
+                    
+                    
+                    
+                    
+                
+                
+                <li>
+                    <a href="/vuejs.org/v2/guide/join.html" class="sidebar-link">Join the Vue.js Community!</a>
+                </li>
+            
+            
+        </ul>
+    </div>
+</div>
+
+
+<div class="content guia with-sidebar ">
+    
+      <div id="ad">
+  <!-- <span>Sponsored By</span><br>
+  <a href="http://www.thedifferenceengine.io/" target="_blank"
+    style="background-color: rgba(0,0,0,.85); padding: 10px 0">
+    <img src="/vuejs.org/images/tde.png">
+  </a> -->
+  <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=vuejs" id="_carbonads_js"></script>
+</div>
+
+    
+    
+      <h1>Consejos para el despliegue a producción</h1>
+    
+    <h2 id="Habilita-el-modo-produccion"><a href="#Habilita-el-modo-produccion" class="headerlink" title="Habilita el modo producción"></a>Habilita el modo producción</h2><p>Durante el desarrollo, Vue provee gran cantidad de advertencias para ayudarte con errores comunes y dificultades. Sin embargo, estas advertencias se vuelven inútiles en producción e inflan el tamaño de tu aplicación final. Además, algunas de estas advertencias tienen un pequeño costo en terminos de rendimiento que pueden ser evitados en el modo producción.</p>
+<h3 id="Sin-herramientas-de-empaquetado"><a href="#Sin-herramientas-de-empaquetado" class="headerlink" title="Sin herramientas de empaquetado"></a>Sin herramientas de empaquetado</h3><p>Si estás utilizando la versión independiente, por ejemplo, incluyendo Vue directamente a través de una etiqueta <code>script</code> sin herramientas de empaquetado, asegúrate de utilizar la versión minificada (<code>vue.min.js</code>) en producción.</p>
+<h3 id="Con-herramientas-de-empaquetado"><a href="#Con-herramientas-de-empaquetado" class="headerlink" title="Con herramientas de empaquetado"></a>Con herramientas de empaquetado</h3><p>Cuando utilices herramientas de empaquetado como Webpack o Browserify, el modo producción será determinado por <code>process.env.NODE_ENV</code> dentro del código fuente de Vue, y estará en modo desarrollo por defecto. Ambas herramientas proveen formas de sobrescribir esta variable para habilitar el modo producción de Vue, y las advertencias serán eliminadas por los minificadores durante el empaquetado. Todas las plantillas de proyectos de <code>vue-cli</code> tienen estas características ya configuradas, pero sería bueno que sepas como se hace:</p>
+<h4 id="Webpack"><a href="#Webpack" class="headerlink" title="Webpack"></a>Webpack</h4><p>Usa <a href="https://webpack.js.org/plugins/define-plugin/" target="_blank" rel="external">DefinePlugin</a> de Webpack para indicar un entorno de producción, para que los bloques de advertencias puedan ser automáticamente descartados por UglifyJS durante la minificación. Configuración de ejemplo:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>)</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="comment">// ...</span></div><div class="line">  plugins: [</div><div class="line">    <span class="comment">// ...</span></div><div class="line">    <span class="keyword">new</span> webpack.DefinePlugin(&#123;</div><div class="line">      <span class="string">'process.env'</span>: &#123;</div><div class="line">        <span class="attr">NODE_ENV</span>: <span class="string">'"production"'</span></div><div class="line">      &#125;</div><div class="line">    &#125;)</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="Browserify"><a href="#Browserify" class="headerlink" title="Browserify"></a>Browserify</h4><ul>
+<li><p>Ejecuta tu comando de empaquetamiento con la variable de entorno <code>NODE_ENV</code> con el valor <code>&quot;production&quot;</code>. Esto indica a <code>vueify</code> que evite incluir la recarga en caliente y el código relativo al desarrollo.</p>
+</li>
+<li><p>Aplica una transformación global <a href="https://github.com/hughsk/envify" target="_blank" rel="external">envify</a> a tu paquete. Esto permite al minificador descartar todas las advertencias envueltas en bloques condicionales de la variable env dentro del código fuente de Vue. Por ejemplo:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><div class="line">NODE_ENV=production browserify -g envify <span class="_">-e</span> main.js | uglifyjs -c -m &gt; build.js</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="Rollup"><a href="#Rollup" class="headerlink" title="Rollup"></a>Rollup</h4><p>Utiliza <a href="https://github.com/rollup/rollup-plugin-replace" target="_blank" rel="external">rollup-plugin-replace</a>:</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><div class="line"><span class="keyword">const</span> replace = <span class="built_in">require</span>(<span class="string">'rollup-plugin-replace'</span>)</div><div class="line"></div><div class="line">rollup(&#123;</div><div class="line">  <span class="comment">// ...</span></div><div class="line">  plugins: [</div><div class="line">    replace(&#123;</div><div class="line">      <span class="string">'process.env.NODE_ENV'</span>: <span class="built_in">JSON</span>.stringify( <span class="string">'production'</span> )</div><div class="line">    &#125;)</div><div class="line">  ]</div><div class="line">&#125;).then(...)</div></pre></td></tr></table></figure>
+<h2 id="Plantillas-precompiladas"><a href="#Plantillas-precompiladas" class="headerlink" title="Plantillas precompiladas"></a>Plantillas precompiladas</h2><p>Cuando utilices plantillas dentro del DOM o plantillas como cadenas de texto en JavaScript, la compilación de <em>funciones de renderizado a plantillas</em> es ejecutada sobre la marcha. Esto normalmente es lo suficientemente rapido en la mayoría de los casos, pero es mejor evitarlo si tu aplicación es sensible al rendimiento.</p>
+<p>La manera mas fácil de precompilar plantillas es utilizando <a href="./single-file-components.html">componentes de un solo archivo</a> - los procesos de empaquetamiento asociados automáticamente realizan la precompilacion por ti, por lo que el código resultante ya contiene las funciones de renderizado en lugar de las plantillas como cadenas de texto.</p>
+<p>Si estas utilizando Webpack, y prefieres separar JavaScript y archivos de plantillas, puedes utilizar <a href="https://github.com/ktsn/vue-template-loader" target="_blank" rel="external">vue-template-loader</a>, el cual también transforma los archivos de plantilla en funciones JavaScript de renderizado durante el proceso de empaquetado.</p>
+<h2 id="Extrayendo-CSS-de-los-componentes"><a href="#Extrayendo-CSS-de-los-componentes" class="headerlink" title="Extrayendo CSS de los componentes"></a>Extrayendo CSS de los componentes</h2><p>Cuando utilices componentes de un solo archivo, el CSS dentro de los mismos es inyectado dinámicamente como etiquetas <code>&lt;style&gt;</code> a través de JavaScript. Esto tiene un pequeño costo en términos de rendimiento, y si estás utilizando renderizado del lado servidor causará un “flash de contenido sin estilizar”. Extrae el CSS de todos los componentes en un mismo archivo y evita estos problemas, además resulta en una mejor minificación y cacheo del CSS.</p>
+<p>Verifica la documentación de las herramientas correspondientes para ver como se realiza:</p>
+<ul>
+<li><a href="http://vue-loader.vuejs.org/en/configurations/extract-css.html" target="_blank" rel="external">Webpack + vue-loader</a> (la plantilla de proyecto webpack de <code>vue-cli</code> lo incluye preconfigurado)</li>
+<li><a href="https://github.com/vuejs/vueify#css-extraction" target="_blank" rel="external">Browserify + vueify</a></li>
+<li><a href="https://github.com/znck/rollup-plugin-vue#options" target="_blank" rel="external">Rollup + rollup-plugin-vue</a></li>
+</ul>
+<h2 id="Registrando-errores-en-tiempo-de-ejecucion"><a href="#Registrando-errores-en-tiempo-de-ejecucion" class="headerlink" title="Registrando errores en tiempo de ejecución"></a>Registrando errores en tiempo de ejecución</h2><p>Si un error en tiempo de ejecución ocurre durante el renderizado de un componente, será pasado a la función de configuración global <code>Vue.config.errorHandler</code> si ha sido agregada. Puede ser una buena idea apoyarse en esta herramienta en conjunto con algún servicio de registro de errores como <a href="https://sentry.io" target="_blank" rel="external">Sentry</a>, el cual provee <a href="https://sentry.io/for/vue/" target="_blank" rel="external">integración oficial</a> para Vue.</p>
+
+    
+    <div class="footer">
+      ¿Encontraste un error o quieres contribuir con la documentación?
+      <a href="https://github.com/vuejs/vuejs.org/blob/master/src/v2/guide/deployment.md" target="_blank">
+        ¡Edita esta página en Github!
+      </a>
+    </div>
+</div>
+
+                
+            </div>
+            <script src="/vuejs.org/js/smooth-scroll.min.js"></script>
+        
+
+        <!-- main custom script for sidebars, version selects etc. -->        
+        <script src="/vuejs.org/js/css.escape.js"></script>
+        <script src="/vuejs.org/js/common.js"></script>
+
+        <!-- search -->
+        <link href="//cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css" rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="/vuejs.org/css/search.css">
+        <script src="//cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script>
+        <script>
+        [
+          '#search-query-nav',
+          '#search-query-sidebar'
+        ].forEach(function (selector) {
+          if (!document.querySelector(selector)) return
+          // search index defaults to v2
+          var match = window.location.pathname.match(/^\/(v\d+)/)
+          var version = match ? match[1] : 'v2'
+          docsearch({
+            appId: 'BH4D9OD16A',
+            apiKey: '85cc3221c9f23bfbaa4e3913dd7625ea',
+            indexName: 'vuejs',
+            inputSelector: selector,
+            algoliaOptions: { facetFilters: ["version:" + version] }
+          })
+        })
+        </script>
+
+        <!-- fastclick -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          FastClick.attach(document.body)
+        }, false)
+        </script>
+    </body>
+</html>
