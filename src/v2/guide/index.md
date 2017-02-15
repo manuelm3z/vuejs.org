@@ -6,15 +6,15 @@ order: 2
 
 ## ¿Qué es Vue.js?
 
-Vue (pronunciado /vjuː/ en inglés, como **view**) es un **framework progresivo** para construir interfaces de usuario. A diferencia de otros _frameworks_ monolíticos, Vue está diseñado desde el inicio para ser adoptado incrementalmente. La biblioteca principal se enfoca solo en la capa de la vista, y es muy simple de utilizar e integrar con otros proyectos o bibliotecas existentes. Por otro lado, Vue también es perfectamente capaz de soportar aplicaciones de una sola página sofisticadas cuando se utiliza en combinación con [herramientas modernas](single-file-components.html) y [bibliotecas de soporte](https://github.com/vuejs/awesome-vue#libraries--plugins).
+Vue (pronunciado /vjuː/ en inglés, como **view**) es un **framework progresivo** para construir interfaces de usuario. A diferencia de otros _frameworks_ monolíticos, Vue está diseñado desde el inicio para ser adoptado incrementalmente. La biblioteca principal se enfoca solo en la capa de la vista, y es muy simple de utilizar e integrar con otros proyectos o bibliotecas existentes. Por otro lado, Vue también es perfectamente capaz de soportar aplicaciones sofisticadas de una sola página (en inglés *single-page-application* o SPA) cuando se utiliza en combinación con [herramientas modernas](single-file-components.html) y [librerías compatibles](https://github.com/vuejs/awesome-vue#libraries--plugins).
 
-Si eres un desarrollador _frontend_ con experiencia y quieres saber como Vue se compara con otras bibliotecas/frameworks, revisa [esta comparación](comparison.html).
+Si eres un desarrollador de _frontend_ con experiencia y quieres saber como Vue se compara con otras bibliotecas/frameworks, revisa [esta comparación](comparison.html).
 
 ## Empezando
 
-<p class="tip">La guia oficial asume un conocimiento intermedio de HTML, CSS y JavaScript. Si eres totalmente nuevo en el desarrollo _frontend_, puede no ser la mejor idea empezar a utilizar un _framework_ - ¡aprende los conceptos básicos y luego vuelve aquí! La experiencia previa con otros _frameworks_ ayuda, pero no es obligatoria.</p>
+<p class="tip">La guia oficial asume un conocimiento intermedio de HTML, CSS y JavaScript. Si eres totalmente nuevo en el desarrollo de _frontend_, puede no ser la mejor idea empezar a utilizar un _framework_ - ¡aprende los conceptos básicos y luego regresa aquí! La experiencia previa con otros _frameworks_ ayuda, pero no es obligatoria.</p>
 
-La manera más sencilla de probar Vue.js es usando el [ejemplo "hola mundo" en JSFiddle](https://jsfiddle.net/chrisvfritz/50wL7mdz/). Siéntete libre de abrilo en otra pestaña y revisarlo a medida que avanzamos con ejemlos básicos. Sino, puedes crear un archivo `.html` e incluye Vue:
+La manera más sencilla de probar Vue.js es usando el [ejemplo "hola mundo" en JSFiddle](https://jsfiddle.net/chrisvfritz/50wL7mdz/). Siéntete libre de abrilo en otra pestaña y revisarlo a medida que avanzamos con ejemlos básicos. Si no, puedes crear un archivo `.html` e incluir Vue con:
 
 ``` html
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
@@ -88,7 +88,7 @@ var app2 = new Vue({
 </script>
 {% endraw %}
 
-Aquí nos encontramos con algo nuevo. El atributo `v-bind` que estás viendo es conocido como una **directiva**. Las directivas llevan el prefijo `v-` para indicar que son atributos especiales provistos por Vue y, como debes haber adivinado, aplican un comportamiento reactivo especial al DOM renderizado. En este caso, básicamente esta diciendo "manten el atributo `title` de este elemento enlazado con la propiedad `message` en la instancia de Vue".
+Aquí nos encontramos con algo nuevo. El atributo `v-bind` que estás viendo es conocido como una **directiva**. Las directivas llevan el prefijo `v-` para indicar que son atributos especiales provistos por Vue y, como debes haber adivinado, aplican un comportamiento reactivo especial al DOM renderizado. En este caso, básicamente está diciendo "mantén el atributo `title` de este elemento enlazado con la propiedad `message` en la instancia de Vue".
 
 Si abres nuevamente tu consola JavaScript y escribes `app2.message = 'some new message'`, verás que el HTML enlazado (en este caso, el atributo `title`) ha sido actualizado.
 
@@ -127,9 +127,9 @@ var app3 = new Vue({
 
 Adelante, escribe `app3.seen = false` en la consola. Deberías ver desaparecer el mensaje.
 
-Este ejemplo demuestra que no solo podemos enlazar datos con texto y atributos, sino también con la **estructura** del DOM. Además, Vue provee un sistema de transiciones muy poderoso que puede aplicar automáticamente [efectos de trancisión](transitions.html) cuando los elementos son agregados/actualizados/removidos por Vue.
+Este ejemplo demuestra que no solo podemos enlazar datos con texto y atributos, sino también con la **estructura** del DOM. Además, Vue provee un sistema de transiciones muy poderoso que puede aplicar automáticamente [efectos de transición](transitions.html) cuando los elementos son agregados/actualizados/removidos por Vue.
 
-Hay unas cuantas otras directivas, cada una con una funcionalidad especial. Por ejemplo, la directiva `v-for` puede ser utilizada para mostrar una lista de elementos usando los datos de un arreglo:
+Hay unas cuantas otras directivas, cada una con una funcionalidad especial. Por ejemplo, la directiva `v-for` puede ser utilizada para mostrar una lista de elementos usando los datos de un array:
 
 ``` html
 <div id="app-4">
@@ -254,7 +254,7 @@ var app6 = new Vue({
 
 ## Componentes
 
-El sistema de componentes es otro concepto importante en Vue, porque es una abstracción que nos permite construir aplicaciones de gran escala compuestas por componentes pequeños, autocontenidos y, normalmente, reutilizables. Si lo pensamos, casi cualquier tipo de interface de aplicación puede ser representada de manera abstracta como un árbol de componentes:
+El sistema de componentes es otro concepto importante en Vue, porque es una abstracción que nos permite construir aplicaciones de gran escala compuestas por componentes pequeños, autocontenidos y, normalmente, reutilizables. Si lo pensamos, casi cualquier tipo de interfaz gráfica de una aplicación puede ser representada de manera abstracta como un árbol de componentes:
 
 ![Component Tree](/images/components.png)
 
@@ -276,7 +276,7 @@ Ahora puedes utilizarlo en la plantilla de otro componente:
 </ol>
 ```
 
-Pero esto renderizaría el mismo texto para cada _todo_, lo cual no es muy interesante. Deberíamos ser capaces de pasar datos desde el padre a los componentes hijo. Modifiquemos la definición del componente para aceptar [propiedades](components.html#Props):
+Pero esto renderizaría el mismo texto para cada _todo_, lo cual no es muy interesante. Deberíamos ser capaces de pasar datos desde el padre a los componentes hijo. Vamos a modificar la definición del componente para aceptar [propiedades](components.html#Props):
 
 ``` js
 Vue.component('todo-item', {
@@ -340,7 +340,7 @@ var app7 = new Vue({
 </script>
 {% endraw %}
 
-Este es simplemente un ejemplo inventado, pero hemos logrado separar nuestra aplicación en porciones más pequeñas, y el hijo está razonablemente desacoplado del padre a través de la interface de propiedades. Podemos mejorar aún más nuestro componente `<todo-item>` con una plantilla más compleja o diferente lógica sin afectar a la aplicación padre.
+Este es simplemente un ejemplo imaginario, pero hemos logrado separar nuestra aplicación en porciones más pequeñas, y el hijo está razonablemente desacoplado del padre a través de la interfaz de propiedades. Podemos mejorar aún más nuestro componente `<todo-item>` con una plantilla más compleja o diferente lógica sin afectar a la aplicación padre.
 
 En aplicaciones grandes, es necesario dividir la aplicación entera en componentes para un desarrollo manejable. Hablaremos mucho más acerca de los componentes [más adelante en la guia](components.html), pero aquí tienes un ejemplo (imaginario) de como luciría una plantilla de aplicación utilizando componentes:
 
@@ -356,11 +356,11 @@ En aplicaciones grandes, es necesario dividir la aplicación entera en component
 
 ### Relación con los elementos personalizados
 
-Puedes haber notado que los componentes de Vue son muy similares a los **Elementos Personalizados**, los cuales son parte de la [especificación de Componentes Web](http://www.w3.org/wiki/WebComponents/). Esto es porque la sintaxis de componente de Vue está modelada basándose en ideas de la especificación. Por ejemplo, los componentes de Vue implementan la [API de Slot](https://github.com/w3c/webcomponents/blob/gh-pages/proposals/Slots-Proposal.md) y el atributo especial `is`. Sin embargo, hay unas cuantas diferencias clave:
+Puedes haber notado que los componentes de Vue son muy similares a los **Elementos Personalizados** (_Custom Elements_), los cuales son parte de la [especificación de Componentes Web](http://www.w3.org/wiki/WebComponents/) (_Web Components_). Esto es porque la sintaxis de componente de Vue está modelada basándose en ideas de la especificación. Por ejemplo, los componentes de Vue implementan la [API de Slot](https://github.com/w3c/webcomponents/blob/gh-pages/proposals/Slots-Proposal.md) y el atributo especial `is`. Sin embargo, hay unas cuantas diferencias clave:
 
-1. La especificación de Componentes Web está en un estado borrador todavía, y no está implementada nativamente el todos los navegadores. En comparación, los componentes de Vue no requieren ningún _polyfill_ y funcionan consistentemente in todos los navegadores soportados (IE9 y superiores). Cuando se necesite, los componentes de Vue pueden ser envueltos dentro de un elemento personalizado nativo.
+1. La especificación de Componentes Web todavía está en un estado de borrador, y no está implementada nativamente en todos los navegadores. En comparación, los componentes de Vue no requieren ningún _polyfill_ y funcionan consistentemente en todos los navegadores soportados (IE9 y superiores). Cuando se necesite, los componentes de Vue pueden ser envueltos dentro de un elemento personalizado nativo.
 
-2. Los componentes de Vue proveen características importantes que no están disponibles en los elementos personalizados, siendo las más notables el flujo de datos entre componentes, la comunicación con eventos personalizados y la integración con herramientas de desarrollo.
+2. Los componentes de Vue proveen características importantes que no están disponibles en los elementos personalizados, siendo las más notables el flujo de datos entre componentes, la comunicación con eventos personalizados, y la integración con herramientas de desarrollo.
 
 ## ¿Listo para más?
 
