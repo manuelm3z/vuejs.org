@@ -6,7 +6,7 @@ order: 11
 
 ## ¿Qué son los componentes?
 
-Los componentes son una de las características más poderosas de Vue. Te permiten extender elementos HTML básicos para encapsular código reutilizable. En un nivel alto, los componentes son elementos personalizados a los que el compilador de Vue les añade comportamiento. En algunos casos, pueden aparecer como elementos HTML nativos extendidos con el atributo especial `is`.
+Los componentes son una de las características más poderosas de Vue. Te permiten extender elementos HTML básicos para encapsular código reutilizable. A grandes rasgos, los componentes son elementos personalizados a los que el compilador de Vue les añade comportamiento. En algunos casos, pueden aparecer como elementos HTML nativos extendidos con el atributo especial `is`.
 
 ## Utilizando componentes
 
@@ -31,7 +31,7 @@ Vue.component('my-component', {
 
 <p class="tip">Nota que Vue no te obliga a utilizar las [reglas de W3C](http://www.w3.org/TR/custom-elements/#concepts) para nombres de etiquetas personalizadas (todo en minúscula, con un guión medio) aunque seguir esta convención es considerado una buena práctica.</p>
 
-Una vez registrado, un componente puede ser utilizado en la plantilla de una instancia como un elemento personalizado `<my-component></my-component>`. Asegúrate que el componente este registrado **antes** de crear la instancia principal de Vue. Aquí hay un ejemplo completo:
+Una vez registrado, un componente puede ser utilizado en la plantilla de una instancia como un elemento personalizado `<my-component></my-component>`. Asegúrate que el componente esté registrado **antes** de crear la instancia principal de Vue. Aquí hay un ejemplo completo:
 
 ``` html
 <div id="example">
@@ -42,7 +42,7 @@ Una vez registrado, un componente puede ser utilizado en la plantilla de una ins
 ``` js
 // registro
 Vue.component('my-component', {
-  template: '<div>A custom component!</div>'
+  template: '<div>¡Mi componente!</div>'
 })
 
 // crear la instancia principal
@@ -55,7 +55,7 @@ Lo cual renderizará:
 
 ``` html
 <div id="example">
-  <div>A custom component!</div>
+  <div>¡Mi componente!</div>
 </div>
 ```
 
@@ -65,7 +65,7 @@ Lo cual renderizará:
 </div>
 <script>
 Vue.component('my-component', {
-  template: '<div>A custom component!</div>'
+  template: '<div>¡Mi componente!</div>'
 })
 new Vue({ el: '#example' })
 </script>
@@ -77,7 +77,7 @@ No tienes que registrar cada componente globalmente. Puede hacer que un componen
 
 ``` js
 var Child = {
-  template: '<div>A custom component!</div>'
+  template: '<div>¡Mi componente!</div>'
 }
 
 new Vue({
@@ -93,7 +93,7 @@ El mismo encapsulamiento aplica para otras características registrables de Vue,
 
 ### Advertencias en el análisis de plantillas del DOM
 
-Cuando utilizas el DOM como tu plantilla (por ejemplo, utilizando la opción `el` para montar un elemento con contenido existente), estarás sujeto a algunas restricciones que son inherentes a como trabaja el HTML, porque Vue solo puede recuperar el contenido de la plantilla **luego** que el navegador lo haya analizado y normalizado. Incluso, algunos elementos como `<ul>`, `<ol>`, `<table>` y `<select>` tienen restricciones acerca de que otros elementos pueden aparecer dentro de ellos, y otros como `<option>` solo pueden aparecer dentro de ciertos otros.
+Cuando utilizas el DOM como tu plantilla (por ejemplo, utilizando la opción `el` para montar un elemento con contenido existente), estarás sujeto a algunas restricciones que son inherentes a como trabaja el HTML, porque Vue solo puede recuperar el contenido de la plantilla **después** de que el navegador lo haya analizado y normalizado. Incluso, algunos elementos como `<ul>`, `<ol>`, `<table>` y `<select>` tienen restricciones acerca de qué elementos pueden contener, y otros como `<option>` solo pueden aparecer dentro de ciertos otros.
 
 Esto conducirá a problemas cuando se utilicen componentes personalizados con elementos que tengas esas restricciones, por ejemplo:
 
@@ -117,7 +117,7 @@ El componente personalizado `<my-row>` será marcado como contenido inválido, c
 - Plantillas de texto JavaScript en línea
 - Componentes `.vue`
 
-Por lo tanto, prefiere utilizar plantillas de texto siempre que sea posible.
+Por lo tanto, es preferible utilizar plantillas de texto siempre que sea posible.
 
 ### `data` debe ser una función
 
@@ -180,7 +180,7 @@ new Vue({
 </script>
 {% endraw %}
 
-Dado que las tres instancias del componente comparten el mismo objeto `data`, ¡incrementar un contador los incrementa a todos! Ouch. Arreglemos esto retornando en su lugar un objeto de datos nuevo:
+Dado que las tres instancias del componente comparten el mismo objeto `data`, ¡Al incrementar un contador se incrementa en todos! _Ouch_. Arreglemos esto retornando en su lugar un objeto de datos nuevo:
 
 ``` js
 data: function () {
@@ -215,19 +215,19 @@ new Vue({
 
 ### Componiendo componentes
 
-Los componentes están pensados para ser utilizados en conjunto, comunmente en relaciones padre-hijo: el componente A puede utilizar al componente B en su propiar plantilla. Necesitarán inevitablemente comunicarse entre ellos: el padre puede necesitar pasar datos hacia el hijo, mientras que el hijo puede necesitar informar de algo que ha ocurrido al padre. Sin embargo, también es muy importante mantener lo más posiblemente desacopados al padre e hijo a través de una interface definida claramente. Esto asegura que el código de cada componente puede ser escrito y se puede razonar aisladamente acerca de él, haciéndolos más mantenibles y potencialmente fáciles de reutilizar.
+Los componentes están pensados para ser utilizados en conjunto, comunmente en relaciones padre-hijo: el componente A puede utilizar al componente B en su propiar plantilla. Necesitarán inevitablemente comunicarse entre ellos: el padre puede necesitar pasar datos hacia el hijo, mientras que el hijo puede necesitar informar de algo que ha ocurrido al padre. Sin embargo, también es muy importante mantener desacopados al padre e hijo todo lo que sea posible a través de una interfaz definida claramente. Esto asegura que el código de cada componente puede ser escrito y razonadode forma independiente, haciéndolos más mantenibles y potencialmente fáciles de reutilizar.
 
-In Vue.js, la relación padre-hijo entre componentes puede ser resumida como **propiedades hacia abajo, eventos hacia arriba**. El padre pasa datos al hijo a través de **propiedades** y el hijo envía mensajes al padre a través de **eventos**. Veamos como trabajan.
+En Vue.js, la relación padre-hijo entre componentes puede ser resumida como **propiedades hacia abajo, eventos hacia arriba**. El padre pasa datos al hijo a través de **propiedades** y el hijo envía mensajes al padre a través de **eventos**. Veamos como trabajan.
 
 <p style="text-align: center">
-  <img style="width:300px" src="/images/props-events.png" alt="props down, events up">
+  <img style="width:300px" src="/images/props-events.png" alt="props abajo, eventos arriba">
 </p>
 
 ## Propiedades
 
 ### Pasando datos a través de propiedades
 
-Cada instancia de componente tiene su propio **ámbito aislado**. Esto significa que no puedes (y no debes) referenciar directamente datos del padre en la plantilla del componente hijo. Los datos pueden ser pasados hacia el hijo utilizando **propiedades**.
+Cada instancia de un componente tiene su propio **ámbito aislado**. Esto significa que no puedes (y no debes) referenciar directamente datos del padre en la plantilla del componente hijo. Los datos pueden ser pasados hacia el hijo utilizando **propiedades**.
 
 Una propiedad es un atributo personalizado para pasar información desde componentes padres. Un componente hijo necesita declarar explícitamente las propiedades que espera recibir utilizando la [opción `props`](../api/#props):
 
@@ -283,7 +283,7 @@ Vue.component('child', {
 <child my-message="hello!"></child>
 ```
 
-De nuevo, si estás utilizando plantillas de texto, entonces está limitación no aplica.
+De nuevo, si estás utilizando plantillas de texto está limitación no aplica.
 
 ### Propiedades dinámicas
 
@@ -345,15 +345,15 @@ Sin embargo, dado que esta es una propiedad literal, su valor se pasa como la ca
 
 ### Flujo de datos en un solo sentido
 
-Todas las propiedades establecen un enlace de **un solo sentido** entre la propiedad del hijo y la del padre: cuando la propiedad del padre cambia, fuirá hacia el hijo, pero no en el sentido inverso. Esto previene que los componentes hijo modifiquen accidentalmente el estado del padre, lo cual puede hacer que el fujo de tu aplicación sea díficil de razonar.
+Todas las propiedades establecen un enlace de **un solo sentido** (_one-way data binding_) entre la propiedad del hijo y la del padre: cuando la propiedad del padre cambia, fuirá hacia el hijo, pero no en el sentido inverso. Esto previene que los componentes hijo modifiquen accidentalmente el estado del padre, lo cual puede hacer que el fujo de tu aplicación sea díficil de razonar.
 
-Además, cada vez que el componente padre es actualizado, todas las propiedades en el componente hijo serán refrescadas con el último valor. Esto significa que **no** deberías modificar una propiedad en un componente hijo. Si lo haces, Vue te advertirá en la consola.
+Además, cada vez que el componente padre es actualizado, todas las propiedades en el componente hijo serán refrescadas con el último valor. Esto significa que **no** deberías mutar una propiedad en un componente hijo. Si lo haces, Vue te advertirá en la consola.
 
-Hay usualmente dos casos en los que puede ser tentador modificar una propiedad:
+Hay usualmente dos casos en los que puede ser tentador mutar una propiedad:
 
-1. La propiedad es utilizada solo para dar un valor inicial, el componente hijo solo quiere utilizarla como una propiedad de datos local luego;
+1. La propiedad es utilizada solo para dar un valor inicial, el componente hijo solo quiere utilizarla como una propiedad de datos local luego.
 
-2. La propiedad es pasada como un valor crudo que luego necesita ser transformado.
+2. La propiedad es pasada como un valor en bruto que luego necesita ser transformado.
 
 Las respuestas apropiadas a estos casos de uso son:
 
@@ -366,7 +366,7 @@ Las respuestas apropiadas a estos casos de uso son:
   }
   ```
 
-2. Define una propiedad computada que sea calculada en base al valor de la propiedad pasada:
+2. Define una propiedad computada (`computed`) que sea calculada en base al valor de la propiedad (`props`):
 
   ``` js
   props: ['size'],
@@ -377,13 +377,13 @@ Las respuestas apropiadas a estos casos de uso son:
   }
   ```
 
-<p class="tip">Nota que los objetos y arreglos en JavaScript son pasados por referencia, por lo que si la propiedad es un arreglo u objeto, modificarlos dentro del hijo **afectará** al estado del padre.</p>
+<p class="tip">Nota que los objetos y _arrays_ en JavaScript son pasados por referencia, por lo que si la propiedad es un _array_ u objeto, modificarlos dentro del hijo **afectará** al estado del padre.</p>
 
 ### Validación de propiedades
 
-Es posible especificar en un compomnente requerimientos para las propiedades que recibe. Si no se cumple con un requerimiento, Vue emitirá advertencias. Esto es especialmente útil cuando estás creando componentes con la intención que sean utlizados por otros.
+Es posible especificar requerimientos para las propiedades que recibe un componente. Si no se cumple con un requerimiento, Vue emitirá advertencias. Esto es especialmente útil cuando estás creando componentes con la intención que sean utlizados por otros.
 
-En lugar de definir las propiedades como un arreglo de cadenas de texto, puedes utilizar un objeto con los requerimientos de validación:
+En lugar de definir las propiedades como un _array_ de cadenas de texto, puedes utilizar un objeto con los requerimientos de validación:
 
 ``` js
 Vue.component('example', {
@@ -402,7 +402,7 @@ Vue.component('example', {
       type: Number,
       default: 100
     },
-    // Los valores por defecto de objectos/arreglos deben ser devueltos
+    // Los valores por defecto de objectos/arrays deben ser devueltos
     // desde una función fábrica
     propE: {
       type: Object,
@@ -439,12 +439,12 @@ Hemos aprendido que los padres pueden pasar datos hacia los hijos utilizando pro
 
 ### Utilizando `v-on` con eventos personalizados
 
-Cada instancia de Vue implementa una [interface de eventos](../api/#Instance-Methods-Events), lo cual significa que puede:
+Cada instancia de Vue implementa una [interfaz de eventos](../api/#Instance-Methods-Events), lo cual significa que puede:
 
 - Escuchar un evento utilizando `$on(eventName)`
 - Emitir un evento utilizando `$emit(eventName)`
 
-<p class="tip">Nota que el sistema de eventos de Vue está separado de la [API EventTarget API](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget) de los navegadores. Aunque funcionan similarmente, `$on` y `$emit` __not__ son alias para `addEventListener` y `dispatchEvent`.</p>
+<p class="tip">Nota que el sistema de eventos de Vue está separado de la [API EventTarget](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget) de los navegadores. Aunque funcionan de forma similar, `$on` y `$emit` **no** son alias para `addEventListener` y `dispatchEvent`.</p>
 
 Además, un componente padre puede escuchar los eventos emitidos por un componente hijo utilizando `v-on` directamente en la plantilla donde el componente hijo está siendo utilizado.
 
@@ -636,11 +636,11 @@ new Vue({
 </script>
 {% endraw %}
 
-La implementación de arriba es bastante inocente. Por ejemplo, los usuarios pueden ingresar múltiples puntos e incluso letras algunas veces, ¡Aagh! Para aquellos que quieran ver un ejemplo no tan trivial, aquí hay un ejemplo más robusto de un campo de entrada de dinero:
+La implementación de arriba es bastante ingenua. Por ejemplo, los usuarios pueden ingresar múltiples puntos e incluso letras algunas veces, ¡Aagh! Para aquellos que quieran ver un ejemplo no tan trivial aquí hay otro más robusto de un campo de entrada de dinero:
 
 <iframe width="100%" height="300" src="https://jsfiddle.net/chrisvfritz/1oqjojjx/embedded/result,html,js" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
-La interface de eventos puede ser usada para crear campos de entrada poco comunes. Por ejemplo, imagina estas posibilidades:
+La interfaz de eventos puede ser usada para crear campos de entrada poco comunes. Por ejemplo, imagina estas posibilidades:
 
 ``` html
 <voice-recognizer v-model="question"></voice-recognizer>
@@ -650,7 +650,7 @@ La interface de eventos puede ser usada para crear campos de entrada poco comune
 
 ### Comunicación entre componentes sin relación padre/hijo
 
-En ocasiones dos componentes pueden necesitar comunicarse entre ellos pero no son padre/hijo. En escenarios simplres, puedes utilizar una instancia de Vue vacía como un bus central de eventos:
+En ocasiones dos componentes pueden necesitar comunicarse entre ellos pero no son padre/hijo. En escenarios similares, puedes utilizar una instancia de Vue vacía como un bus central de eventos:
 
 ``` js
 var bus = new Vue()
@@ -666,9 +666,9 @@ bus.$on('id-selected', function (id) {
 })
 ```
 
-En escenarios más complejos, deberías considerar emplear un [patrón de manejo de estado dedicado](state-management.html).
+En escenarios más complejos, deberías considerar emplear un [patrón para manejo dedicado del estado](state-management.html).
 
-## Distribución de contenido con slots
+## Distribución de contenido con _slots_
 
 Cuando se utilizan componentes, es usual querer componerlos como:
 
@@ -681,7 +681,7 @@ Cuando se utilizan componentes, es usual querer componerlos como:
 
 Hay dos cosas a notar aquí:
 
-1. El componente `<app>` no sabe que contenido puede ser necesario en el elemento donde será montado. Eso lo decide cualquier componente que esté utilizando `<app>`.
+1. El componente `<app>` no sabe qué contenido puede ser necesario en el elemento donde será montado. Eso lo decide cualquier componente que esté utilizando `<app>`.
 
 2. El componente `<app>` probablemente tenga su propia plantilla.
 
@@ -689,7 +689,7 @@ Para lograr que la composición funcione, necesitamos una manera de entrelazar e
 
 ### Ámbito de compilación
 
-Antes de sumergirnos en la API, clarifiquemos primero en que ámbito son compilados los contenidos. Imagina una plantilla como esta:
+Antes de sumergirnos en la API, clarifiquemos primero en qué ámbito son compilados los contenidos. Imagina una plantilla como esta:
 
 ``` html
 <child-component>
@@ -697,7 +697,7 @@ Antes de sumergirnos en la API, clarifiquemos primero en que ámbito son compila
 </child-component>
 ```
 
-¿`message` debería estar enlazado a los datos del padre o del hijo? La respuesta es al padre. Suna  The answer is the parent. Una regla sencilla para recordar el ámbito de los componentes es:
+¿`message` debería estar enlazado a los datos del padre o del hijo? La respuesta es al padre. Una regla sencilla para recordar el ámbito de los componentes es:
 
 > Todo lo que se encuentre en la plantilla del padre es compilado en el ámbito del padre; todo lo que se encuentra en la plantilla del hijo, es compilado en el ámbito del hijo.
 
@@ -726,9 +726,9 @@ Vue.component('child-component', {
 
 De manera similar, el contenido distribuido será compilado en el ámbito padre.
 
-### Slot único
+### _Slot_ único
 
-El contenido del padre será **descartado** a menos que la plantilla del componente hijo contenga por lo menos un contenedor `<slot>`. Cuando haya solo un _slot_ sin atributos, el contenido completo será insertado en su posición en el DOM, reemplazandolo.
+El contenido del padre será **descartado** a menos que la plantilla del componente hijo contenga por lo menos un contenedor `<slot>`. Cuando haya solo un _slot_ sin atributos, el contenido completo será insertado en su posición del DOM, reemplazándolo.
 
 Cualquier contenido originalmente dentro de la etiqueta `<slot>` es considerado **por defecto**. El contenido por defecto es compilado en el ámbito del hijo y solo será mostrado si el elemento de alojamiento está vacío y no tiene contenido para ser insertado.
 
@@ -736,10 +736,9 @@ Imagina que tenemos un componente llamado `my-component` con la siguiente planti
 
 ``` html
 <div>
-  <h2>I'm the child title</h2>
+  <h2>Título del hijo</h2>
   <slot>
-    This will only be displayed if there is no content
-    to be distributed.
+    Esto solo se mostrará si no hay contenido para mostrar.
   </slot>
 </div>
 ```
@@ -748,10 +747,10 @@ Y el padre que utiliza el componente:
 
 ``` html
 <div>
-  <h1>I'm the parent title</h1>
+  <h1>Título del padre</h1>
   <my-component>
-    <p>This is some original content</p>
-    <p>This is some more original content</p>
+    <p>Algo de contenido</p>
+    <p>Más contenido</p>
   </my-component>
 </div>
 ```
@@ -760,20 +759,20 @@ El resultado renderizado será:
 
 ``` html
 <div>
-  <h1>I'm the parent title</h1>
+  <h1>Título del padre</h1>
   <div>
-    <h2>I'm the child title</h2>
-    <p>This is some original content</p>
-    <p>This is some more original content</p>
+    <h2>Título del hijo</h2>
+    <p>Algo de contenido</p>
+    <p>Más contenido</p>
   </div>
 </div>
 ```
 
-### Slots con nombre
+### _Slots_ con nombre
 
-Los elementos `<slot>` tienen un atributo especial, `name`, el cual puede ser utilizado para personalizar aún más como debe ser distribuido el contenido. Puedes tener múltiples _slots_ con diferentes nombres. Un _slot_ con nombre se emparejará con cualquier elemento que tenga su correspondiente atributo `slot` en el fragmento de contenido.
+Los elementos `<slot>` tienen un atributo especial, `name`, el cual puede ser utilizado para personalizar aún más como debe ser distribuido el contenido. Puedes tener múltiples _slots_ con diferentes nombres. Un _slot_ con nombre se emparejará con cualquier elemento que tenga su correspondiente atributo `slot` en el fragmento del contenido.
 
-Todavía puede haber un _slot_ sin nombre, el cual es el **_slot_ por defecto** que captura cualquier contenido que no haya coincidido anteriormente. Si no hay un _slot_ por defecto, el contenido que no haya coincidido será descartado.
+Aún así, todavía puede haber un _slot_ sin nombre, el cual es el **_slot_ por defecto** que captura cualquier contenido que no haya coincidido anteriormente. Si no hay un _slot_ por defecto, el contenido que no haya coincidido será descartado.
 
 Por ejemplo, imagina que tenemos un componente `app-layout` con la siguiente plantilla:
 
@@ -795,12 +794,12 @@ La estructura del padre:
 
 ``` html
 <app-layout>
-  <h1 slot="header">Here might be a page title</h1>
+  <h1 slot="header">Aquí podría ir el título de la página</h1>
 
-  <p>A paragraph for the main content.</p>
-  <p>And another one.</p>
+  <p>Un párrafo para el contenido.</p>
+  <p>Y otro párrafo.</p>
 
-  <p slot="footer">Here's some contact info</p>
+  <p slot="footer">Información de contacto</p>
 </app-layout>
 ```
 
@@ -809,54 +808,54 @@ El renderizado resultante será:
 ``` html
 <div class="container">
   <header>
-    <h1>Here might be a page title</h1>
+    <h1>Aquí podría ir el título de la página</h1>
   </header>
   <main>
-    <p>A paragraph for the main content.</p>
-    <p>And another one.</p>
+    <p>Un párrafo para el contenido.</p>
+    <p>Y otro párrafo.</p>
   </main>
   <footer>
-    <p>Here's some contact info</p>
+    <p>Información de contacto</p>
   </footer>
 </div>
 ```
 
 La API de distribución de contenido es un mecanismo muy útil cuando se diseñan componentes pensados para utilizarse compuestos con otros.
 
-### Slots con ámbito
+### _Slots_ con ámbito
 
 > Nuevo en 2.1.0
 
-Un _slot_ con ámbito es un tipo especial de _slot_ que funciona como una plantilla reusable (a la que se pueden pasar datos) en lugar de elementos-ya-renderizados.
+Un _slot_ con ámbito es un tipo especial de _slot_ que funciona como una plantilla reutilizable (a la que se pueden pasar datos) en lugar de elementos ya renderizados.
 
 En un componente hijo, simplemente pasa datos a un _slot_ como si estuvieses pasando propiedades a un componente:
 
 ``` html
 <div class="child">
-  <slot text="hello from child"></slot>
+  <slot text="hola desde el hijo"></slot>
 </div>
 ```
 
-En el padre, un elemento `<template>` con el atributo especial `scope` indica que es una plantilla para un _slot_ con ámbito. El valor de `scope` es el nombre de una variable temporaria que mantiene el objeto de propiedades pasado desde el hijo:
+En el padre, un elemento `<template>` con el atributo especial `scope` indica que es una plantilla para un _slot_ con ámbito. El valor de `scope` es el nombre de una variable temporal que mantiene el objeto de propiedades pasado desde el hijo:
 
 ``` html
 <div class="parent">
   <child>
     <template scope="props">
-      <span>hello from parent</span>
+      <span>hola desde el padre</span>
       <span>{{ props.text }}</span>
     </template>
   </child>
 </div>
 ```
 
-Si renderizamos lo anterior, la salida será:
+Si renderizamos lo anterior, el resultado será:
 
 ``` html
 <div class="parent">
   <div class="child">
-    <span>hello from parent</span>
-    <span>hello from child</span>
+    <span>hola desde el padre</span>
+    <span>hola desde el hijo</span>
   </div>
 </div>
 ```
@@ -872,7 +871,7 @@ Un caso de uso típico para _slots_ con ámbito sería un componente lista que p
 </my-awesome-list>
 ```
 
-Y la plantilla para el componente lista:
+Y la plantilla para el componente de lista:
 
 ``` html
 <ul>
@@ -937,19 +936,19 @@ Si quieres mantener en memoria los componentes que han sido sacados para preserv
 
 Más detalles acerca de `<keep-alive>` en la [referencia de la API](../api/#keep-alive).
 
-## Misc
+## Miscelánea
 
-### Creando componentes reusables
+### Creando componentes reutilizables
 
-Cuando crees componentes, es bueno tener en cuenta si tu intención es reutilizarlo en algún otro lugar luego. Está bien que componentes de un solo uso estén estrechamente acoplados, pero los componentes reusables deben definir una interface pública limpia y no suponer nada acerca del contexto en el que está siendo utilizado.
+Cuando crees componentes, es bueno tener en cuenta si tu intención es reutilizarlo en algún otro lugar más adelante. Está bien que los componentes de un solo uso estén estrechamente acoplados, pero los componentes reutilizables deben definir una interfaz pública limpia y no suponer nada acerca del contexto en el que está siendo utilizado.
 
 La API para un componente de Vue se divide en tres partes: propiedades, eventos y _slots_:
 
-- Las **propiedades** permiten al ambiente externo pasar datos al componente
+- Las **propiedades** (_props_) permiten al ambiente externo pasar datos al componente
 
 - Los **eventos** permiten al componente disparar efectos secundarios en el ambiente externo
 
-- Los **Slots** permiten al ambiente externo componer al componente con contenido extra
+- Los **slots** permiten al ambiente externo componer al componente con contenido extra
 
 Con la sintaxis corta para `v-bind` y `v-on`, las intenciones pueden ser comunicadas clara y exitosamente a la plantilla:
 
@@ -981,13 +980,13 @@ var parent = new Vue({ el: '#parent' })
 var child = parent.$refs.profile
 ```
 
-Cuando `ref` se utiliza en conjunto con `v-for`, la referencia que obtendrás será un arreglo de objetos que contienen componentes hijos espejados con la funte de datos.
+Cuando `ref` se utiliza en conjunto con `v-for`, la referencia que obtendrás será un _array_ de objetos que contienen componentes hijos espejados con la fuente de datos.
 
 <p class="tip">`$refs` son asignadas luego de que el componente haya sido renderizado, y no es reactivo. Está pensado como una vía de escape para la manipulación directa de hijos. Debes evitar utilizar `$refs` en las plantillas o propiedades computadas.</p>
 
 ### Componentes asíncronos
 
-En aplicaciones grandes, puede que necesitemos dividir la aplicación en porciones mas chicas y cargar un componente desde el servidor solo cuando es en realidad utilizado. Para hacer esto más sencillo, Vue te permite definir tus componentes como una función fabrica que resuelve asíncronicamente la definición de ese componente. Vue ejecutará la función fábrica solo cuando el componente necesite ser renderizado y guardará en memoria caché el resultado para futuras re-renderizaciones. Por ejemplo:
+En aplicaciones grandes, puede que necesitemos dividir la aplicación en porciones mas pequeñas y cargar un componente desde el servidor solo cuando es realmente utilizado. Para hacer esto más sencillo, Vue te permite definir tus componentes como una función factoría que resuelve asíncronicamente la definición de ese componente. Vue ejecutará la función factoría solo cuando el componente necesite ser renderizado y guardará en memoria caché el resultado para futuras re-renderizaciones. Por ejemplo:
 
 ``` js
 Vue.component('async-example', function (resolve, reject) {
@@ -1000,7 +999,7 @@ Vue.component('async-example', function (resolve, reject) {
 })
 ```
 
-La función fábrica recibe una función _callback_ `resolve`, la cual debe ser llamada cuando hayas recuperado la definición del componente desde tu servidor. Puedes también ejecutar `reject(reason)` para indicar que la carga ha fallado. `setTimeout` aquí está simplemente como demostración. Como se recupera el componente es una decisión totalmente a tu criterio. Un enfoque recomendado es utilizar los componentes asíncronos junto con la [característica de división de código de Webpack](https://webpack.js.org/guides/code-splitting-require/):
+La función factoría recibe una función _callback_ `resolve`, la cual debe ser llamada cuando hayas recuperado la definición del componente desde tu servidor. Puedes también ejecutar `reject(reason)` para indicar que la carga ha fallado. `setTimeout` aquí está simplemente como demostración. Cómo se recupere el componente es una decisión totalmente a tu criterio. Un enfoque recomendado es utilizar los componentes asíncronos junto con el [_code splitting_ de Webpack](https://webpack.js.org/guides/code-splitting-require/):
 
 ``` js
 Vue.component('async-webpack-example', function (resolve) {
@@ -1011,7 +1010,7 @@ Vue.component('async-webpack-example', function (resolve) {
 })
 ```
 
-Puedes devolver también un `Promise` en la función fábrica, por lo que con la sintaxis de Webpack 2 + ES2015 puedes hacer:
+Puedes devolver también un `Promise` en la función factoría, por lo que con la sintaxis de Webpack 2 + ES2015 puedes hacer:
 
 ``` js
 Vue.component(
@@ -1020,11 +1019,11 @@ Vue.component(
 )
 ```
 
-<p class="tip">Si eres un usuario <strong>Browserify</strong> y te gustaría utilizar componentes asíncronos, desafortunadamente su creador [ha dejado muy claro](https://github.com/substack/node-browserify/issues/58#issuecomment-21978224) que la carga asíncrona "no es algo que Browserify soportará nunca". Oficialmente al menos. La comunidad ha encontrado [algunas soluciones alternativas](https://github.com/vuejs/vuejs.org/issues/620), las cuales pueden ser útiles para aplicaciones complejas ya existentes. Para cualquier otro escenario, recomendamos utilizar Webpack para tener soporte asíncrono de primera clase incorporado.</p>
+<p class="tip">Si eres un usuario de <strong>Browserify</strong> y te gustaría utilizar componentes asíncronos, desafortunadamente su creador [ha dejado muy claro](https://github.com/substack/node-browserify/issues/58#issuecomment-21978224) que la carga asíncrona "no es algo que Browserify vaya a soportar". Oficialmente al menos. La comunidad ha encontrado [algunas soluciones alternativas](https://github.com/vuejs/vuejs.org/issues/620), las cuales pueden ser útiles para aplicaciones complejas ya existentes. Para cualquier otro escenario, recomendamos utilizar Webpack para tener soporte asíncrono de primera clase incorporado.</p>
 
 ### Convención de nombres de componentes
 
-Cuando registres componentes (o propiedades), puedes utilizar kebab-case, camelCase, o TitleCase. A Vue no le interesa.
+Cuando registres componentes (o propiedades), puedes utilizar kebab-case, camelCase, o TitleCase. A Vue no le importa.
 
 ``` js
 // en una definición de componente
@@ -1038,7 +1037,7 @@ components: {
 }
 ```
 
-Sin embargo, dentro de las plantillas HTML, debes utilizar kebab-case: 
+Dentro de las plantillas HTML, debes utilizar kebab-case:
 
 ``` html
 <!-- siempre utiliza kebab-case en plantillas HTML -->
@@ -1047,7 +1046,7 @@ Sin embargo, dentro de las plantillas HTML, debes utilizar kebab-case:
 <title-cased-component></title-cased-component>
 ```
 
-Sin embargo, cuando utilices plantillas de texto, no estás limitado por las restricciones de HTML. Eso significa que incluso en las plantillas, puedes referenciar a tus componentes y propiedades utilizando camelCase, TitleCase, o kebab-case:
+Cuando utilices plantillas de texto, no estás limitado por las restricciones de HTML. Eso significa que incluso en las plantillas, puedes referenciar a tus componentes y propiedades utilizando camelCase, TitleCase, o kebab-case:
 
 ``` html
 <!-- ¡utiliza lo que quieras en plantillas de texto! -->
@@ -1087,7 +1086,7 @@ name: 'stack-overflow',
 template: '<div><stack-overflow></stack-overflow></div>'
 ```
 
-Un componente como el anterior resultará en un error "tamaño máximo de pila excedido", así que asegúrate que la invocación recursiva sea condicional (quiere decir, utiliza un `v-ìf` que eventualmente será `false`).
+Un componente como el anterior resultará en un error _"max stack size exceeded"_, así que asegúrate que la invocación recursiva sea condicional (ej: utiliza un `v-ìf` que en algún momento sea `false`).
 
 ### Referencias circulares entre componentes
 
@@ -1111,7 +1110,7 @@ Luego un componente `tree-folder-contents` con esta otra plantilla:
 </ul>
 ```
 
-Cuando miras detenidamente, verás que estos componentes serán en realidad descendientes _y_ ancestros uno del otro en el árbol, ¡una paradoja! Cuando registras componentes globalmente con `Vue.component`, esta paradoja se resuelve automáticamente por ti. Si es tu caso, deja de leer aquí.
+Si lo piensas, verás que estos componentes serán en realidad descendientes _y_ ancestros uno del otro en el árbol, ¡una paradoja! Cuando registras componentes globalmente con `Vue.component`, esta paradoja se resuelve automáticamente por ti. Si es tu caso, deja de leer aquí.
 
 Sin embargo, si estas requiriendo/importando componentes utilizando un __sistema de módulos__, por ejemplo Webpack o Browserify, obtendrás un error:
 
@@ -1138,13 +1137,13 @@ Cuando el atributo especial `inline-template` está presente en un componente hi
 ``` html
 <my-component inline-template>
   <div>
-    <p>These are compiled as the component's own template.</p>
-    <p>Not parent's transclusion content.</p>
+    <p>Estos serán compilados como la plantilla del mismo componente.</p>
+    <p>No como la transclusion del contenido del padre.</p>
   </div>
 </my-component>
 ```
 
-Sin embargo, `inline-template` hace más difícil razonar acerca del ámbito de nuestra plantilla. Como una buena práctica, es preferible definir plantillas dentro de componentes utilizando la opción `template` o en un elemento `template` dentro de un archivo `.vue`.
+Sin embargo, `inline-template` hace más difícil razonar acerca del ámbito de nuestra plantilla. Como buena práctica, es preferible definir plantillas dentro de componentes utilizando la opción `template` o en un elemento `template` dentro de un archivo `.vue`.
 
 ### X-Templates
 
@@ -1162,7 +1161,7 @@ Vue.component('hello-world', {
 })
 ```
 
-Esto puede ser útil para demostraciones con plantillas grandes o en aplicaciones extremadamente pequeñas, pero debe ser evitado en otro caso, porque separan las plantillas del resto de la definición del componente.
+Esto puede ser útil para demostraciones con plantillas grandes o en aplicaciones extremadamente pequeñas, pero generalmente debe ser evitado porque separan las plantillas del resto de la definición del componente.
 
 ### Componentes estáticos baratos con `v-once`
 
@@ -1173,7 +1172,7 @@ Vue.component('terms-of-service', {
   template: '\
     <div v-once>\
       <h1>Terms of Service</h1>\
-      ... a lot of static content ...\
+      ... mucho contenido estático ...\
     </div>\
   '
 })
