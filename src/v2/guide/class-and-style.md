@@ -4,7 +4,7 @@ type: guia
 order: 6
 ---
 
-Una necesidad común cuando se enlazan datos es manipular la lista de clases de un elemento y sus estilos en línea. Dado que ambos son atributos, podemos utilizar `v-bind` para manejarlos: solo necesitamos calcular la cadena de texto final con nuestras expresiones. Sin embargo, lidiar con la concatenación de texto es molesto y propenso a errores. Por este motivo, Vue provee mejoras especiales cuando `v-bind` se utiliza en conjunto con `class` y `style`. Además de cadenas de texto, las expresiones peuden evaluar también objetos o arreglos:
+Una necesidad común cuando se enlazan datos es manipular la lista de clases de un elemento y sus estilos en línea (dentro del atributo HTML `style`). Dado que ambos son atributos, podemos utilizar `v-bind` para manipularlos: solo necesitamos calcular la cadena de texto final con nuestras expresiones. Sin embargo, lidiar con la concatenación de texto es molesto y propenso a errores. Por este motivo, Vue provee mejoras especiales cuando `v-bind` se utiliza en conjunto con `class` y `style`. Además de cadenas de texto, las expresiones también pueden evaluar objetos o _arrays_:
 
 ## Enlazando clases HTML
 
@@ -79,7 +79,7 @@ computed: {
 
 ### Sintaxis de arreglo
 
-Podemos pasar un arreglo a `v-bind:class` para aplicar una lista de clases:
+Podemos pasar un _array_ a `v-bind:class` para aplicar una lista de clases:
 
 ``` html
 <div v-bind:class="[activeClass, errorClass]">
@@ -105,7 +105,7 @@ Si quisieras alternar una clase en la lista condicionalmente, puedes hacerlo con
 
 Esto siempre aplicará la clase `errorClass`, pero solo `activeClass` cuando `isActive` valga `true`.
 
-Sin embargo, esto puede resultar engorroso si tienes múltiples clases condicionales. Es por eso que también es posible utilizar la sintaxis de objetos dentro de la sintaxis de arreglos:
+Sin embargo, esto puede resultar engorroso si tienes múltiples clases condicionales. Es por eso que también es posible utilizar la sintaxis de objetos dentro de la sintaxis de _array_:
 
 ``` html
 <div v-bind:class="[{ active: isActive }, errorClass]">
@@ -113,7 +113,7 @@ Sin embargo, esto puede resultar engorroso si tienes múltiples clases condicion
 
 ### Dentro de componentes
 
-> Esta sección asume un conocimiento previo de los [componentes de Vue](components.html). Siéntete libre de saltearla y volver luego.
+> Esta sección asume un conocimiento previo de los [componentes de Vue](components.html). Siéntete libre de ignorarla y regresar luego.
 
 Cuando utilizas el atributo `class` en un componente personalizado, esas clases serán agregadas al elemento raíz del componente. Las clases existentes en el elemento no serán sobre escritas.
 
@@ -179,11 +179,11 @@ data: {
 }
 ```
 
-Nuevamente, la sintaxis de objeto es utilizada normalmente en conjunto con propiedades computadas que devuelven objetos.
+Nuevamente, la sintaxis de objeto es utilizada a menudo en conjunto con propiedades computadas que devuelven objetos.
 
-### Sintaxis de arreglo
+### Sintaxis de _array_
 
-La sintaxis de arreglo para `v-bind:style` te permite aplicar múltiples objetos de estilo al mismo elemento:
+La sintaxis de _array_ para `v-bind:style` te permite aplicar múltiples objetos de estilo al mismo elemento:
 
 ``` html
 <div v-bind:style="[baseStyles, overridingStyles]">
