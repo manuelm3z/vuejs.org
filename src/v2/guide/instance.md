@@ -14,7 +14,7 @@ var vm = new Vue({
 })
 ```
 
-A pesar de no estar estrictamente asociado con el [patrón MVVM](https://en.wikipedia.org/wiki/Model_View_ViewModel), el diseño de Vue estuvo parcialmente inspirado en él. Como convención, normalmente utilizamos la variable `vm` (abreviación de _ViewModel_) para referirnos a instancias de Vue.
+A pesar de no estar estrictamente asociado con el [patrón MVVM](https://en.wikipedia.org/wiki/Model_View_ViewModel), el diseño de Vue estuvo parcialmente inspirado en él. Por convención, normalmente utilizamos la variable `vm` (abreviación de _ViewModel_) para referirnos a instancias de Vue.
 
 Cuando creas una nueva instancia de Vue, necesitas pasar un **objeto de opciones**, el cual puede contener opciones para datos, una plantilla, el elemento donde montarla, métodos, _callbacks_ para el ciclo de vida, etc. Puedes encontrar la lista completa de opciones en la [documentación de referencia de la API](../api).
 
@@ -53,7 +53,7 @@ data.a = 3
 vm.a // -> 3
 ```
 
-Debe tenerse en cuenta que solo estas propiedades que están en el objeto `data` son **reactivas**. Si agregas una propiedad a la instancia después de haberla creado, no va a desencadenar actualizaciones a la vista. Veremos el sistema de la reactividad más adelante con detalle.
+Debe tenerse en cuenta que solo las propiedades que están en el objeto `data` son **reactivas**. Si agregas una propiedad a la instancia después de haberla creado, no va a desencadenar actualizaciones a la vista. Veremos el sistema de la reactividad más adelante con detalle.
 
 Además de las propiedades de datos, las instancias de Vue exponen una serie de propiedades y métodos de la instancia muy útiles. Estas propiedades y métodos tienen el prefijo `$` para diferenciarlos de las propiedades del objeto `data` que pasan por el _proxy_ de la instancia Vue. Por ejemplo:
 
@@ -79,7 +79,7 @@ Consulta la [documentación de referencia de la API](../api) para la lista compl
 
 ## Hooks del ciclo de vida de una instancia
 
-Cada instancia de Vue recorre una serie de pasos de inicialización cuando es creada. Por ejemplo, necesita configurar la observación de los datos, compilar la plantilla, montar la instancia en el DOM, y actulizar el DOM cuando los datos cambien. Durante este proceso, la instancia de Vue invocará _hooks_ (ganchos) del ciclo de vida, esto nos dará la oportunidad de ejecutar nuestra lógica. Por ejemplo, el hook _[`created`](../api/#created)_ (creado) se llamará después de que la instancia haya sido creada.
+Cada instancia de Vue recorre una serie de pasos de inicialización cuando es creada. Por ejemplo, necesita configurar la observación de los datos, compilar la plantilla, montar la instancia en el DOM, y actualizar el DOM cuando los datos cambien. Durante este proceso, la instancia de Vue invocará _hooks_ (ganchos) duante el ciclo de vida del component, esto nos dará la oportunidad de ejecutar nuestra lógica. Por ejemplo, el hook _[`created`](../api/#created)_ (creado) se llamará después de que la instancia haya sido creada.
 
 ``` js
 var vm = new Vue({
