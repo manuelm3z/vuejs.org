@@ -106,7 +106,7 @@ computed: {
 }
 ```
 
-En comparación, la invocación a un método **siempre** ejecutará la función cada vez que produzca un renderizado.
+En comparación, la invocación a un método **siempre** ejecutará la función cada vez que se produzca un renderizado.
 
 ¿Por qué necesitamos guardar en caché? Imagina que tenemos una propiedad computada **A** costosa en términos de rendimiento, la cual requiere iterar a través de un vector enorme y hacer muchos cálculos. Además, podemos tener otras propiedades computadas que dependan de **A**. Sin este guardado en memoria caché, ¡estaríamos ejecutando la función _getter_ de **A** muchas más veces de las necesarias! En los casos donde no requieras guardar en caché, utiliza un método.
 
