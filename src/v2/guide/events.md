@@ -6,7 +6,7 @@ order: 9
 
 ## Escuchando eventos
 
-Podemos utilizar la directiva `v-on` para escuchar eventos del DOM y ejecutar algo de JavaScript cuando son disparados.
+Podemos utilizar la directiva `v-on` para escuchar eventos del DOM y ejecutar algo de JavaScript cuando sean disparados.
 
 Por ejemplo:
 
@@ -44,7 +44,7 @@ var example1 = new Vue({
 
 ## Métodos para controladoras de eventos
 
-La lógica para muchas funciones controladoras de eventos puede ser un tanto compleja, por lo que mantener el código JavaScript en el valor del atributo `v-on` simplemente no es factible. Por esto es que `v-on` acepta el nombre del método que te gustaría ejecutar.
+La lógica para muchas funciones controladoras de eventos puede ser un tanto compleja, por lo que mantener el código JavaScript en el valor del atributo `v-on` sencillamente no es factible. Es por esto que `v-on` acepta el nombre del método que te gustaría ejecutar.
 
 Por ejemplo:
 
@@ -61,7 +61,7 @@ var example2 = new Vue({
   data: {
     name: 'Vue.js'
   },
-  // define métodos dentro del objeto `methods`
+  // define los métodos dentro del objeto `methods`
   methods: {
     greet: function (event) {
       // `this` dentro de los métodos apunta a la instancia de Vue
@@ -74,7 +74,7 @@ var example2 = new Vue({
   }
 })
 
-// puedes invocar métodos en JavaScript tamibién
+// puedes invocar métodos en JavaScript también
 example2.greet() // -> 'Hello Vue.js!'
 ```
 
@@ -160,9 +160,9 @@ methods: {
 
 ## Modificadores de eventos
 
-Es una necesidad muy común llamar a `event.preventDefault()` o `event.stopPropagation()` dentro de las funciones controladoras. Aunque podemos hacerlo fácilmente dentro de los métodos, sería mejor si estos tuvieran solo la lógica acerca de los datos en lugar de lidiar con detalles del evento del DOM.
+Es una necesidad muy común llamar a `event.preventDefault()` o `event.stopPropagation()` dentro de las funciones controladoras. Aunque podemos hacerlo fácilmente dentro de los métodos, sería mejor si estos tuvieran solo la lógica de los datos en lugar de lidiar con detalles del evento del DOM.
 
-Para solucionar este problema, Vue provee **modificadores de eventos** para `v-on`. Recuerda que esos modificadores son sufijos en las directivas indicados con un punto.
+Para solucionar este problema, Vue provee **modificadores de eventos** para `v-on`. Recuerda que estos modificadores son sufijos en las directivas y se indican con un punto.
 
 - `.stop`
 - `.prevent`
@@ -183,7 +183,7 @@ Para solucionar este problema, Vue provee **modificadores de eventos** para `v-o
 <!-- solo el modificador -->
 <form v-on:submit.prevent></form>
 
-<!-- usa el modo captura cuando agregas _listener_ de eventos -->
+<!-- usa el modo de captura cuando agregas _listener_ de eventos -->
 <div v-on:click.capture="doThis">...</div>
 
 <!-- solo dispara la función controladora si event.target es este elemento -->
@@ -198,7 +198,7 @@ Para solucionar este problema, Vue provee **modificadores de eventos** para `v-o
 <a v-on:click.once="doThis"></a>
 ```
 
-A diferencia de otros modificadores, los cuales son exclusivos de los eventos nativos del DOM, el modificador `.once` puede ser usado también en [eventos de componentes](components.html#Using-v-on-with-Custom-Events). Si todavía no has leído acerca de los componentes, por ahroa no te preocupes por esta característica.
+A diferencia de otros modificadores, los cuales son exclusivos de los eventos nativos del DOM, el modificador `.once` puede ser usado también en [eventos de componentes](components.html#Using-v-on-with-Custom-Events). Si todavía no has leído nada acerca de los componentes, por ahora no te preocupes por esta característica.
 
 ## Modificadores de teclas
 
@@ -263,10 +263,10 @@ Por ejemplo:
 
 ## ¿Por qué _listeners_ en el HTML?
 
-Debes estar preocupado porque todo este enfoque de escucha de eventos viola las viejas y buenas reglas acerca de la "separación de intereses". Ten la garantía: dado que todas las funciones controladoras y expresiones en Vue están estrictamente enlazadas con el _ViewModel_ que controla la vista actual, no causará ningún problema de mantenimiento. De hecho, hay varios beneficios por utilizar `v-on`:
+Debes estar preocupado porque todo este enfoque de escucha de eventos viola las viejas y buenas reglas acerca de la "separación de intereses". Ten esta garantía: dado que todas las funciones controladoras y expresiones en Vue están estrictamente enlazadas con el _ViewModel_ que controla la vista actual, no causará ningún problema de mantenimiento. De hecho, hay varios beneficios por utilizar `v-on`:
 
-1. Es más sencillo localizar las implementaciones de las funciónes controladoras dentro de tu código JS simplemente echando un vistado a la plantilla HTML.
+1. Es más sencillo localizar las implementaciones de las funciones controladoras dentro de tu código JS sencillamente echando un vistado a la plantilla HTML.
 
 2. Dado que no tienes que agregar manualmente _listeners_ de eventos en JS, el código de tu _ViewModel_ puede ser lógica pura y estar libre del DOM. Esto lo hace más sencillo de probar.
 
-3. Cuando un _ViewModel_ es destruido, todos los _listeners_ de eventos son removidos automáticamente. No necesitas preocuparte por quitarlos tú mismo.
+3. Cuando un _ViewModel_ es destruido, todos los _listeners_ de eventos son removidos automáticamente, por lo que no necesitas preocuparte por quitarlos tú mismo.
