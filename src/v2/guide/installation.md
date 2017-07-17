@@ -17,7 +17,7 @@ Vue **no** está soportado en IE8 ni versiones anteriores, porque utiliza caract
 
 Se pueden encontrar notas de lanzamiento detalladas para cada versión en [GitHub](https://github.com/vuejs/vue/releases).
 
-## Versión independiente
+## Versión independiente `<script>`
 
 Simplemente descargala e incluyela con una etiqueta script. `Vue` se registrará como una variable global.
 
@@ -31,13 +31,13 @@ Simplemente descargala e incluyela con una etiqueta script. `Vue` se registrará
 
 ### CDN
 
-Recomendación: [unpkg](https://unpkg.com/vue/dist/vue.js), el cual contendrá la última versión apenas haya sido publicada en npm. También puedes explorar el código fuente del paquete npm en [unpkg.com/vue/](https://unpkg.com/vue/).
+Recomendación: [https://unpkg.com/vue](https://unpkg.com/vue/dist/vue.js), el cual contendrá la última versión apenas haya sido publicada en npm. También puedes explorar el código fuente del paquete npm en [https://unpkg.com/vue/](https://unpkg.com/vue/).
 
-También se encuentra disponible en [jsdelivr](//cdn.jsdelivr.net/vue/{{vue_version}}/vue.js) o [cdnjs](//cdnjs.cloudflare.com/ajax/libs/vue/{{vue_version}}/vue.js), pero estos dos servicios pueden tardar algún tiempo en sincronizar, por lo que la última versión puede no estar disponible todavía.
+También se encuentra disponible en [jsDelivr](//cdn.jsdelivr.net/vue/{{vue_version}}/vue.js) o [cdnjs](//cdnjs.cloudflare.com/ajax/libs/vue/{{vue_version}}/vue.js), pero estos dos servicios pueden tardar algún tiempo en sincronizar, por lo que la última versión puede no estar disponible todavía.
 
 ## NPM
 
-NPM es el método de instalación recomendado cuando se construyen aplicaciones de gran escala con Vue. Se integra bien con empaquetadores de módulos como [Webpack](http://webpack.github.io/) o [Browserify](http://browserify.org/). Vue también provee herramientas complementarias para la creación de [componentes de un solo archivo](single-file-components.html).
+NPM es el método de instalación recomendado cuando se construyen aplicaciones a gran escala con Vue. Se integra bien con empaquetadores de módulos como [Webpack](http://webpack.github.io/) o [Browserify](http://browserify.org/). Vue también provee herramientas complementarias para la creación de [componentes de un solo archivo](single-file-components.html).
 
 ``` bash
 # última versión estable
