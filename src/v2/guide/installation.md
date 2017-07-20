@@ -47,7 +47,7 @@ $ npm install vue
 
 Hay dos versiones disponibles, la independiente y la _runtime-only_. La diferencia es que la primera incluye un **compilador de plantillas** y la última no.
 
-El compilador de plantillas es responsable de compilar plantillas de Vue en funciones de renderizado de JavaScript puro. Si deseas utilizar la opción `template`, entonces necesitas el compilador.
+El compilador de plantillas es responsable de compilar plantillas en formato string de Vue a funciones de renderizacion en JavaScript puro. Si deseas utilizar la opción `template`, entonces necesitas el compilador.
 
 - La versión independiente incluye el compilador y soporta la opción `template`. **También depende de la presencia de APIs del navegador, por lo que no puedes usarlo para renderizado del lado servidor.**
 
@@ -77,7 +77,7 @@ Para Browserify, puedes añadir un alias a tu archivo package.json:
 
 Algunos ambientes, como las aplicaciones de Google Chrome, imponen las Políticas de Seguridad de Contenido (CSP por sus siglas en inglés), las cuales prohiben el uso de `new Function()` para la evaluación de expresiones. La versión independiente depende de esta característica para compilar plantillas, por lo que no es posible utilizarla en estos ambientes.
 
-Por otro lado, la versión _runtime-only_ es completamente compatible con CSP. Cuando utilices la versión _runtime-only_ [Webpack + vue-loader](https://github.com/vuejs-templates/webpack-simple) o [Browserify + vueify](https://github.com/vuejs-templates/browserify-simple), tus plantillas serán pre-compiladas en funciones `render` las cuales funcionan perfectamente en ambientes CSP.
+Por otro lado, la versión _runtime-only_ es completamente compatible con CSP. Cuando utilices la versión _runtime-only_ con [Webpack + vue-loader](https://github.com/vuejs-templates/webpack-simple) o [Browserify + vueify](https://github.com/vuejs-templates/browserify-simple), tus plantillas serán pre-compiladas en funciones `render` las cuales funcionan perfectamente en ambientes CSP.
 
 ## CLI
 
