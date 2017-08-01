@@ -47,7 +47,7 @@ $ npm install vue
 
 Hay dos versiones disponibles, la independiente y la _runtime-only_. La diferencia es que la primera incluye un **compilador de plantillas** y la última no.
 
-El compilador de plantillas es responsable de compilar plantillas en formato string de Vue a funciones de renderizacion en JavaScript puro. Si deseas utilizar la opción `template`, entonces necesitas el compilador.
+El compilador de plantillas es responsable de compilar plantillas de Vue en funciones de renderizado de JavaScript puro. Si deseas utilizar la opción `template`, entonces necesitas el compilador.
 
 - La versión independiente incluye el compilador y soporta la opción `template`. **También depende de la presencia de APIs del navegador, por lo que no puedes usarlo para renderizado del lado servidor.**
 
