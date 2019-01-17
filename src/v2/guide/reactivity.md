@@ -18,7 +18,7 @@ Cada instancia de un componente tiene su correspondiente instancia de **observad
 
 ## Advertencias para la detección de cambios
 
-Debido a las limitaciones de JavaScript moderno (y el abandono de `Object.observe`), Vue **no puede detectar cuando se agrega o quita una propiedad**. Dado que Vue realiza la el proceso de conversión a _getters/setters_ durante la inicialización de la instancia, las propiedades deben estar presentes en el objeto `data` para que puedan convertirse y ser reactivos. Por ejemplo:
+Debido a las limitaciones de JavaScript moderno (y el abandono de `Object.observe`), Vue **no puede detectar cuando se agrega o quita una propiedad**. Dado que Vue realiza el proceso de conversión a _getters/setters_ durante la inicialización de la instancia, las propiedades deben estar presentes en el objeto `data` para que puedan convertirse y ser reactivos. Por ejemplo:
 
 ``` js
 var vm = new Vue({
